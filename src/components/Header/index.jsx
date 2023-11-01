@@ -56,7 +56,7 @@ export const Header = () => {
           }`}</p>
           <p>{teacher.email}</p>
         </div>
-        <div className="ctn-avatar" onClick="">
+        <div className="ctn-avatar">
           <img src={avatarUrl} alt="Avatar" />
         </div>
       </ContentPerfil>
