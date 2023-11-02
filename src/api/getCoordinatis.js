@@ -1,14 +1,13 @@
 import axios from "axios";
 
 export const getCoordinatesFromAddress = async (address) => {
-  const addressString = `${address.number} ${address.street}, ${address.city}, ${address.state} ${address.cep}`;
+  const addressString = `${address.street} ${address.number} - ${address.neighborhood}, ${address.city}, ${address.state} ${address.cep}`;
   console.log(address);
   try {
     const response = await axios.get(
       `https://geocode.maps.co/search?q=${addressString}`
     );
 
-    console.log("geooo", response.data[0]);
     const location = response.data[0];
 
     return location;

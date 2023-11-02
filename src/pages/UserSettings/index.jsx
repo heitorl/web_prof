@@ -8,45 +8,86 @@ import Sidebar from "../../components/Sidebar";
 import GoogleMapWithGeocoding from "../../components/LocationMap";
 import Form from "../../components/Form";
 import * as yup from "yup";
-import { FiLock, FiMail, FiPhone } from "react-icons/fi";
+import { FiLock, FiMail, FiPhone, FiUser } from "react-icons/fi";
 
 const UserSettings = () => {
-  const { teacher } = useContext(TeacherContext);
+  const { teacher, updatedSettingsInfo } = useContext(TeacherContext);
   const avatarUrl = useAvatarUrl(teacher);
 
-  const [selectedDisciplines, setSelectedDisciplines] = useState([]); // Adicione o estado para disciplinas selecionadas
-
+  const [selectedDisciplines, setSelectedDisciplines] = useState([]);
   const inputs = [
     {
+      name: "name",
+      validation: () => yup.string(),
+      icon: FiUser,
+      label: "Nome",
+      placeholder: teacher.name,
+      type: "text",
+    },
+    {
+      name: "lastName",
+      validation: () => yup.string(),
+      icon: FiUser,
+      label: "sobrenome",
+      placeholder: teacher.lastName,
+      type: "text",
+    },
+    {
       name: "email",
-      validation: () => yup.string().required("Campo obrigatório!"),
+      validation: () => yup.string(),
       icon: FiMail,
       label: "email",
-      placeholder: "Digite seu email",
+      placeholder: teacher.email,
       type: "text",
-      defaultValue: teacher.email,
     },
     {
       name: "phone",
       validation: () => yup.string(),
       icon: FiPhone,
       label: "Telefone",
-      placeholder: "Digite seu telefone",
-      type: "tel",
-      defaultValue: teacher.curriculum.celullar,
+      placeholder: teacher.curriculum.celullar,
+      type: "text",
     },
   ];
 
-  const disciplines = [
-    // Exemplo de disciplinas disponíveis
-    { id: "1", name: "Matemática" },
-    { id: "2", name: "Português" },
-    { id: "3", name: "História" },
+  const namesDisc = [
+    "Matemática",
+    "Ciências",
+    "Inglês",
+    "História",
+    "Geografia",
+    "Artes Visuais",
+    "Música",
+    "Programação",
+    "Educação Física",
+    "Psicologia",
+    "Filosofia",
+    "Física",
+    "Nutrição",
+    "Negócios e Empreendedorismo",
+    "Ciência da Computação",
+    "Astronomia",
+    "Sociologia",
+    "Ciência Política",
+    "Jornalismo",
+    "Design de Interiores",
   ];
 
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDisciplines(
+      typeof value === "string" ? value.split(",") : value
+    );
+    console.log(selectedDisciplines, "checkMarks");
+  };
+
   const onSubmitFunction = async (data) => {
-    // Execute sua função de envio com os dados e disciplinas selecionadas
+    data = { ...data, selectedDisciplines };
     console.log("Dados do formulário:", data);
+
+    await updatedSettingsInfo(data);
     console.log("Disciplinas selecionadas:", selectedDisciplines);
   };
 
@@ -84,9 +125,10 @@ const UserSettings = () => {
             <Form
               onSubmit={onSubmitFunction}
               inputs={inputs}
-              disciplines={disciplines} // Passe as disciplinas disponíveis
+              disciplines={namesDisc} // Passe as disciplinas disponíveis
               selectedDisciplines={selectedDisciplines} // Passe as disciplinas selecionadas
               setSelectedDisciplines={setSelectedDisciplines} // Passe a função para atualizar as disciplinas selecionadas
+              handleChange={handleChange}
             />
           </div>
         </ContentRow>

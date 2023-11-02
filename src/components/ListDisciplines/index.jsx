@@ -4,9 +4,9 @@ import { TeacherContext } from "../../providers/TeacherContext";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
-const SelectedInput = () => {
+const ListDisciplines = () => {
   const { teacher } = useContext(TeacherContext);
-
+  // console.log(teacher);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -18,18 +18,13 @@ const SelectedInput = () => {
 
   return (
     <div>
-      <Stack
-        spacing={{ xs: 1, sm: 2 }}
-        direction="row"
-        useFlexGap
-        flexWrap="wrap"
-      >
-        {teacher.disciplines.map((element) => (
-          <Item>{element.disciplines[0]}</Item>
+      <Stack spacing={{ xs: 1, sm: 2 }} direction="row" flexWrap="wrap">
+        {teacher.disciplines[0].disciplines.map((element) => (
+          <Item key={element}>{element}</Item>
         ))}
       </Stack>
     </div>
   );
 };
 
-export default SelectedInput;
+export default ListDisciplines;

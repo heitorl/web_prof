@@ -4,21 +4,21 @@ import { Formn } from "./style";
 import Button from "../Button";
 import Input from "../Input";
 import { createValidationSchemaUtil } from "../../utils/createValidationSchema";
-import SelectedInput from "../SeletecdInput";
 import MultipleSelectCheckmarks from "../Checkmarks";
+import ListDisciplines from "../ListDisciplines";
 const Form = ({
   onSubmit,
   inputs,
   disciplines,
   selectedDisciplines,
   setSelectedDisciplines,
+  handleChange,
 }) => {
   const schema = createValidationSchemaUtil(inputs);
 
   const {
     register,
     handleSubmit,
-    control, // Adicione o control do React Hook Form
     reset,
     formState: { errors },
   } = useForm({
@@ -26,10 +26,9 @@ const Form = ({
   });
 
   const onSubmitFunction = async (data) => {
-    // Acessar disciplinas selecionadas no objeto data
+    console.log("hello do form");
     const { selectedDisciplines, ...formData } = data;
 
-    // Execute sua função de envio com os dados e disciplinas selecionadas
     await onSubmit(formData);
     reset();
   };
@@ -51,11 +50,16 @@ const Form = ({
       ))}
       <div className="check-disc">
         <h3>Selecione até 3 disciplinas para ensinar: </h3>
-        <MultipleSelectCheckmarks />
+        <MultipleSelectCheckmarks
+          disciplines={disciplines}
+          selectedDisciplines={selectedDisciplines}
+          setSelectedDisciplines={setSelectedDisciplines}
+          handleChange={handleChange}
+        />
       </div>
       <div className="my-disc">
         <h3>Disciplinas que ensino:</h3>
-        <SelectedInput />
+        <ListDisciplines />
       </div>
 
       <Button type="submit">Enviar</Button>

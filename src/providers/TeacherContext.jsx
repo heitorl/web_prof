@@ -93,6 +93,28 @@ export const TeacherProvider = ({ children }) => {
     navigate("/");
   };
 
+  const updatedSettingsInfo = async (formData) => {
+    try {
+      console.log(formData, "formData provider");
+      console.log(data.token, "token");
+
+      const response = await axios.patch(
+        "http://localhost:3000/teacher/updatedInfo",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      console.log(response, "ressss");
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   const getImageAvatar = async (user) => {
     try {
       if (!user.avatar) return;
@@ -148,6 +170,7 @@ export const TeacherProvider = ({ children }) => {
         valueFind,
         findAllTeacher,
         getImageAvatar,
+        updatedSettingsInfo,
         // editResumeFromCurriculum
       }}
     >
