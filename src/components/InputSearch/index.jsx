@@ -1,20 +1,28 @@
-import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
+import { ContainerForm } from "./style";
+import Button from "../Button";
 
-export default function ComboBox() {
+export const ImputSearch = ({ setTeacherList }) => {
+  const [disciplines, setDisciplines] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   const { findAllTeacher } = useContext(TeacherContext);
-  const [teacherList, setTeacherList] = useState([]);
 
   useEffect(() => {
     const fetchTeacherList = async () => {
       try {
         const response = await findAllTeacher();
-        console.log(response);
-        const names = response.map((teacher) => teacher.name);
-        setTeacherList(names);
+        const allDisciplines = response.reduce((acc, teacher) => {
+          const disciplinas = teacher.disciplines[0]?.disciplines;
+          return acc.concat(disciplinas);
+        }, []);
+        const uniqueDisciplines = [...new Set(allDisciplines)];
+        const formattedDisciplines = uniqueDisciplines.map((discipline) => ({
+          label: discipline,
+        }));
+        setDisciplines(formattedDisciplines);
       } catch (error) {
         console.error(error);
       }
@@ -23,16 +31,39 @@ export default function ComboBox() {
     fetchTeacherList();
   }, [findAllTeacher]);
 
-  return (
-    <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={teacherList}
-      sx={{ width: 150, margin: 0, paddingTop: 0 }}
-      renderInput={(params) => <TextField {...params} label="Disciplina" />}
-      className="custom-textfield"
-    />
-  );
-}
+  const handleSearch = async () => {
+    try {
+      const response = await findAllTeacher();
+      const filteredTeachers = response.filter((teacher) => {
+        const teacherDisciplines = teacher.disciplines[0]?.disciplines;
+        return teacherDisciplines.includes(searchValue["label"]);
+      });
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+      setTeacherList(filteredTeachers);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <ContainerForm
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSearch();
+      }}
+    >
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={disciplines}
+        getOptionLabel={(option) => option.label}
+        sx={{ width: 280, margin: 0, borderRadius: 3 }}
+        renderInput={(params) => <TextField {...params} label="Disciplinas" />}
+        value={null}
+        onChange={(e, newValue) => setSearchValue(newValue)}
+        className="custom-textfield"
+      />
+      <Button type="submit">Buscar</Button>
+    </ContainerForm>
+  );
+};
