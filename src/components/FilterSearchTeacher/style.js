@@ -4,6 +4,7 @@ export const ContainerTeachers = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
+  padding-top: 50px;
 
   ul {
     width: 80%;
@@ -12,7 +13,7 @@ export const ContainerTeachers = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
-    grid-row-gap: 30px;
+    grid-row-gap: 50px;
     padding-top: 30px;
 
     li {
@@ -28,9 +29,13 @@ export const ContainerTeachers = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        span {
-          font-size: 14px;
-          color: rgb(113, 128, 150);
+        .ctn-disc {
+          display: flex;
+
+          span {
+            font-size: 14px;
+            color: rgb(113, 128, 150);
+          }
         }
       }
       .description {
@@ -75,6 +80,9 @@ export const ContainerTeachers = styled.div`
 
             svg {
               color: var(--primary);
+            }
+            p {
+              margin-left: 5px;
             }
           }
         }

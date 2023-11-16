@@ -23,6 +23,13 @@ export const Content = styled.div`
     width: 100%;
 
     flex-direction: column;
+
+    .bar {
+      border-bottom: 1px solid var(--primary);
+      width: 50%;
+      padding-top: 30px;
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -31,6 +38,7 @@ export const ContainerSearch = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 30px;
 
   .ctn-title {
     display: flex;

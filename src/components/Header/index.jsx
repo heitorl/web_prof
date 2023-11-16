@@ -1,9 +1,7 @@
-import { useEffect } from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { IoIosSchool } from "react-icons/io";
 import { MdOutlineMail, MdNotifications } from "react-icons/md";
 import { TeacherContext } from "../../providers/TeacherContext";
-import userNull from "../../assets/usernull.jpg";
 
 import {
   Container,
@@ -11,7 +9,6 @@ import {
   ContentNotification,
   ContentPerfil,
 } from "./styles";
-import { FaUser } from "react-icons/fa";
 import useAvatarUrl from "../../utils/getAvatarForUser";
 
 export const Header = () => {

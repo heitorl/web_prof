@@ -5,20 +5,35 @@ import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { ContainerTeachers } from "./style";
 import { FaMap } from "react-icons/fa";
+import userNull from "../../assets/undefined.png";
+
 export const FilterSearchTeacher = ({ teacherList }) => {
   const { getImageAvatar } = useContext(TeacherContext);
-
   const [avatarUrls, setAvatarUrls] = useState([]);
 
   useEffect(() => {
     async function fetchAvatar() {
       try {
+        if (!Array.isArray(teacherList)) {
+          return;
+        }
+
         const urls = await Promise.all(
           teacherList.map(async (teacher) => {
-            const response = await getImageAvatar(teacher);
-            return response;
+            if (!teacher.avatar) {
+              return userNull;
+            } else {
+              const response = await getImageAvatar(teacher);
+
+              return response;
+            }
           })
         );
+
+        if (!Array.isArray(urls)) {
+          return;
+        }
+
         const avatarUrlsObj = urls.reduce((acc, url, index) => {
           const teacherId = teacherList[index].id;
           acc[teacherId] = url;
@@ -29,6 +44,7 @@ export const FilterSearchTeacher = ({ teacherList }) => {
         console.error(error);
       }
     }
+
     fetchAvatar();
   }, [teacherList, getImageAvatar]);
 
@@ -50,7 +66,17 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                   <h2>
                     {teacher.name} {teacher.lastName}
                   </h2>
-                  <span>{teacher.disciplines[0]?.disciplines[0]}</span>
+                  <div className="ctn-disc">
+                    {teacher.disciplines &&
+                      teacher.disciplines[0]?.disciplines.map(
+                        (disc, index, array) => (
+                          <span key={index}>
+                            {disc}
+                            {index !== array.length - 1 && " / "}{" "}
+                          </span>
+                        )
+                      )}
+                  </div>
                 </div>
                 <div className="description">
                   <span>
@@ -66,7 +92,13 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                     </span>
                     <span className="price">R$ 90/h</span>
                     <div className="map">
-                      <FaMap /> 12/KM
+                      <FaMap />
+                      <p>
+                        {" "}
+                        {teacher.distanceInKilometers
+                          ? `${teacher.distanceInKilometers} km`
+                          : "?"}
+                      </p>
                     </div>
                   </div>
                   <div className="ctn-button">

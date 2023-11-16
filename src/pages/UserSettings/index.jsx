@@ -45,32 +45,9 @@ const UserSettings = () => {
       validation: () => yup.string(),
       icon: FiPhone,
       label: "Telefone",
-      placeholder: teacher.curriculum.celullar,
+      placeholder: teacher.curriculum?.celullar || "numero de telefone",
       type: "text",
     },
-  ];
-
-  const namesDisc = [
-    "Matemática",
-    "Ciências",
-    "Inglês",
-    "História",
-    "Geografia",
-    "Artes Visuais",
-    "Música",
-    "Programação",
-    "Educação Física",
-    "Psicologia",
-    "Filosofia",
-    "Física",
-    "Nutrição",
-    "Negócios e Empreendedorismo",
-    "Ciência da Computação",
-    "Astronomia",
-    "Sociologia",
-    "Ciência Política",
-    "Jornalismo",
-    "Design de Interiores",
   ];
 
   const handleChange = (event) => {
@@ -125,7 +102,6 @@ const UserSettings = () => {
             <Form
               onSubmit={onSubmitFunction}
               inputs={inputs}
-              disciplines={namesDisc} // Passe as disciplinas disponíveis
               selectedDisciplines={selectedDisciplines} // Passe as disciplinas selecionadas
               setSelectedDisciplines={setSelectedDisciplines} // Passe a função para atualizar as disciplinas selecionadas
               handleChange={handleChange}

@@ -14,10 +14,12 @@ export const ImputSearch = ({ setTeacherList }) => {
     const fetchTeacherList = async () => {
       try {
         const response = await findAllTeacher();
-        const allDisciplines = response.reduce((acc, teacher) => {
+
+        const allDisciplines = response.data.reduce((acc, teacher) => {
           const disciplinas = teacher.disciplines[0]?.disciplines;
           return acc.concat(disciplinas);
         }, []);
+
         const uniqueDisciplines = [...new Set(allDisciplines)];
         const formattedDisciplines = uniqueDisciplines.map((discipline) => ({
           label: discipline,
@@ -34,15 +36,29 @@ export const ImputSearch = ({ setTeacherList }) => {
   const handleSearch = async () => {
     try {
       const response = await findAllTeacher();
-      const filteredTeachers = response.filter((teacher) => {
+      const filteredTeachers = response.data.filter((teacher) => {
         const teacherDisciplines = teacher.disciplines[0]?.disciplines;
-        return teacherDisciplines.includes(searchValue["label"]);
+        return teacherDisciplines.includes(searchValue?.label);
       });
 
       setTeacherList(filteredTeachers);
     } catch (error) {
       console.error(error);
     }
+  };
+  const handleInputChange = async (event, newValue) => {
+    setSearchValue(newValue);
+
+    // Se o valor do input estiver vazio, busca todos os professores
+    if (!newValue) {
+      const { data } = await findAllTeacher();
+      setTeacherList(data);
+    }
+  };
+
+  const getOptionLabel = (option) => {
+    //verificando se a opção é valida (não seja undefined)
+    return option && option.label ? option.label : "";
   };
 
   return (
@@ -56,14 +72,16 @@ export const ImputSearch = ({ setTeacherList }) => {
         disablePortal
         id="combo-box-demo"
         options={disciplines}
-        getOptionLabel={(option) => option.label}
-        sx={{ width: 280, margin: 0, borderRadius: 3 }}
+        getOptionLabel={getOptionLabel}
+        sx={{ width: 280 }}
         renderInput={(params) => <TextField {...params} label="Disciplinas" />}
-        value={null}
-        onChange={(e, newValue) => setSearchValue(newValue)}
+        value={searchValue}
+        onChange={handleInputChange}
         className="custom-textfield"
       />
-      <Button type="submit">Buscar</Button>
+      <Button className="btn-submit" type="submit">
+        Buscar
+      </Button>
     </ContainerForm>
   );
 };

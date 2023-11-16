@@ -9,7 +9,6 @@ import ListDisciplines from "../ListDisciplines";
 const Form = ({
   onSubmit,
   inputs,
-  disciplines,
   selectedDisciplines,
   setSelectedDisciplines,
   handleChange,
@@ -26,7 +25,6 @@ const Form = ({
   });
 
   const onSubmitFunction = async (data) => {
-    console.log("hello do form");
     const { selectedDisciplines, ...formData } = data;
 
     await onSubmit(formData);
@@ -51,7 +49,6 @@ const Form = ({
       <div className="check-disc">
         <h3>Selecione até 3 disciplinas para ensinar: </h3>
         <MultipleSelectCheckmarks
-          disciplines={disciplines}
           selectedDisciplines={selectedDisciplines}
           setSelectedDisciplines={setSelectedDisciplines}
           handleChange={handleChange}

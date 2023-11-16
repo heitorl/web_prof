@@ -52,9 +52,12 @@ export const TeacherProvider = ({ children }) => {
 
   const findAllTeacher = async () => {
     try {
-      const { data } = await api.get("/teacher/search");
-
-      return data;
+      const response = await api.get("/student/search", {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -95,9 +98,6 @@ export const TeacherProvider = ({ children }) => {
 
   const updatedSettingsInfo = async (formData) => {
     try {
-      console.log(formData, "formData provider");
-      console.log(data.token, "token");
-
       const response = await axios.patch(
         "http://localhost:3000/teacher/updatedInfo",
         formData,
@@ -108,12 +108,22 @@ export const TeacherProvider = ({ children }) => {
         }
       );
 
-      console.log(response, "ressss");
+      setData((prevData) => ({
+        ...prevData,
+        user: {
+          ...prevData.user,
+          ...response.data,
+        },
+      }));
+
+      localStorage.setItem("@WebProf:user", JSON.stringify(response.data));
     } catch (error) {
       console.error(error);
       return null;
     }
   };
+
+  //Faça aqui o setData com o teacherAtualizado de
 
   const getImageAvatar = async (user) => {
     try {
@@ -171,6 +181,7 @@ export const TeacherProvider = ({ children }) => {
         findAllTeacher,
         getImageAvatar,
         updatedSettingsInfo,
+
         // editResumeFromCurriculum
       }}
     >

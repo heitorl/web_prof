@@ -42,7 +42,6 @@ const names = [
 ];
 
 export default function MultipleSelectCheckmarks({
-  disciplines,
   selectedDisciplines,
   setSelectedDisciplines,
   handleChange,

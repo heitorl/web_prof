@@ -17,7 +17,7 @@ export const ContentGeral = styled.div`
     border-bottom: 1px solid var(--primary);
   }
   .ctn-title {
-    margin-top: 28px;
+    padding-top: 70px;
     span {
       color: #718096;
       font-size: 28px;

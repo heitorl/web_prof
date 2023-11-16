@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, ContentGeral } from "./style";
 import { IoIosPerson, IoIosContacts, IoIosLogOut } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
@@ -6,9 +6,24 @@ import { TbLayoutDashboard } from "react-icons/tb";
 import { FaRegAddressCard } from "react-icons/fa";
 import { useContext } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export const Sidebar = () => {
   const { teacherLogout } = useContext(TeacherContext);
+
+  const navigate = useNavigate();
+
+  const [endpoint, setEndpoint] = useState("");
+
+  const handleNavigation = (newEndpoint) => {
+    console.log(newEndpoint);
+    setEndpoint(newEndpoint);
+  };
+
+  useEffect(() => {
+    navigate(endpoint);
+  }, [endpoint]);
 
   return (
     <>
@@ -22,7 +37,9 @@ export const Sidebar = () => {
           <div className="ctn-links">
             <div className="ctn-icon">
               <TbLayoutDashboard />
-              <Link>Dashboard</Link>
+              <Link onClick={() => handleNavigation("/dashboard")}>
+                Dashboard
+              </Link>
             </div>
 
             <div className="ctn-icon">
@@ -48,7 +65,9 @@ export const Sidebar = () => {
 
             <div className="ctn-icon">
               <FiSettings />
-              <Link>Configuração</Link>
+              <Link onClick={() => handleNavigation("/settings")}>
+                Configuração
+              </Link>
             </div>
 
             <div className="ctn-icon">
