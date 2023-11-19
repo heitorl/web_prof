@@ -12,6 +12,8 @@ export const TeacherContext = createContext({
 export const TeacherProvider = ({ children }) => {
   const navigate = useNavigate();
 
+  const [imageUploaded, setImageUploaded] = useState({});
+
   const [data, setData] = useState(() => {
     const token = localStorage.getItem("@TOKEN");
     const user = localStorage.getItem("@WebProf:user");
@@ -123,8 +125,6 @@ export const TeacherProvider = ({ children }) => {
     }
   };
 
-  //Faça aqui o setData com o teacherAtualizado de
-
   const getImageAvatar = async (user) => {
     try {
       if (!user.avatar) return;
@@ -147,6 +147,46 @@ export const TeacherProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
       return null;
+    }
+  };
+
+  const updateFile = (data) => {
+    setImageUploaded((prevData) => ({ ...prevData, ...data }));
+  };
+
+  const requestAvatarUpload = async (file) => {
+    try {
+      const response = await api.patch("teacher/avatar", file, {
+        onUploadProgress: (event) => {
+          const progress = parseInt(
+            Math.round((event.loaded * 100) / event.total)
+          );
+          updateFile({ progress });
+        },
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+        responseType: "blob",
+      });
+
+      if (response.data instanceof Blob) {
+        const blobUrl = URL.createObjectURL(response.data);
+
+        updateFile({
+          uploaded: true,
+          url: blobUrl,
+        });
+      } else {
+        console.error("A resposta não contém dados de imagem válidos.");
+        updateFile({
+          error: true,
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao fazer upload do avatar:", error);
+      updateFile({
+        error: true,
+      });
     }
   };
 
@@ -181,6 +221,9 @@ export const TeacherProvider = ({ children }) => {
         findAllTeacher,
         getImageAvatar,
         updatedSettingsInfo,
+        imageUploaded,
+        setImageUploaded,
+        requestAvatarUpload,
 
         // editResumeFromCurriculum
       }}

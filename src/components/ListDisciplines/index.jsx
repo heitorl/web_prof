@@ -9,7 +9,6 @@ const ListDisciplines = () => {
   const { teacher } = useContext(TeacherContext);
   const [disciplines, setDisciplines] = useState([]);
 
-  // console.log(teacher);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -20,7 +19,6 @@ const ListDisciplines = () => {
   }));
 
   useEffect(() => {
-    console.log(teacher, "teacher in useEffect");
     setDisciplines(
       teacher.disciplines.length ? teacher.disciplines[0].disciplines : []
     );

@@ -118,9 +118,3 @@ export const Content = styled.div`
     }
   }
 `;
-
-// export const ContentProfile = styled.div`
-//   width: 30%;
-//   display: flex;
-
-// `

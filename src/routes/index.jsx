@@ -8,7 +8,6 @@ import Dashboard from "../pages/Dashboard/index";
 import SearchTeacher from "../pages/SearchTeacher/index";
 import Profile from "../pages/Teacher/profile";
 import UserSettings from "../pages/UserSettings";
-// import ProtectedRoutes from "./route";
 
 const Routes = () => {
   return (

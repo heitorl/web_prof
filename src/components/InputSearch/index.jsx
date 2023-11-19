@@ -49,7 +49,6 @@ export const ImputSearch = ({ setTeacherList }) => {
   const handleInputChange = async (event, newValue) => {
     setSearchValue(newValue);
 
-    // Se o valor do input estiver vazio, busca todos os professores
     if (!newValue) {
       const { data } = await findAllTeacher();
       setTeacherList(data);
@@ -57,7 +56,6 @@ export const ImputSearch = ({ setTeacherList }) => {
   };
 
   const getOptionLabel = (option) => {
-    //verificando se a opção é valida (não seja undefined)
     return option && option.label ? option.label : "";
   };
 

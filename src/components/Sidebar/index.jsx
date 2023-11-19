@@ -17,7 +17,6 @@ export const Sidebar = () => {
   const [endpoint, setEndpoint] = useState("");
 
   const handleNavigation = (newEndpoint) => {
-    console.log(newEndpoint);
     setEndpoint(newEndpoint);
   };
 

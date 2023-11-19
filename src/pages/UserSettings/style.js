@@ -17,6 +17,14 @@ export const Content = styled.div`
     height: 100vh;
     padding: 30px;
     margin-left: 20px;
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+    }
   }
 
   .ctn-photo {
@@ -64,6 +72,7 @@ export const Content = styled.div`
       right: 0;
       margin: 0px 5px;
       color: var(--primary);
+      cursor: pointer;
     }
   }
 
@@ -114,6 +123,25 @@ export const ContentRow = styled.div`
     .title {
       color: #696969;
       padding: 20px;
+      margin-top: 30px;
+    }
+
+    form {
+      padding-top: 10px;
+
+      button {
+        margin-top: 30px;
+      }
     }
   }
+`;
+
+export const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Cor de fundo escura com transparência */
+  z-index: 999; /* Um valor maior que o z-index do modal */
 `;

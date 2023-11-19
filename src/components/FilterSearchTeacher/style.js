@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+const fadeInDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 export const ContainerTeachers = styled.div`
   display: flex;
@@ -15,6 +25,7 @@ export const ContainerTeachers = styled.div`
     justify-items: center;
     grid-row-gap: 50px;
     padding-top: 30px;
+    animation: ${fadeInDown} 0.5s;
 
     li {
       width: 340px;

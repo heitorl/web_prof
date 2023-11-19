@@ -1,17 +1,22 @@
 import { useContext, useState } from "react"; // Importe useState
 import Header from "../../components/Header";
 import useAvatarUrl from "../../utils/getAvatarForUser";
-import { Container, ContentRow, Content } from "./style";
+import { Container, ContentRow, Content, Backdrop } from "./style";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { FaCamera, FaMapMarked } from "react-icons/fa";
 import Sidebar from "../../components/Sidebar";
 import GoogleMapWithGeocoding from "../../components/LocationMap";
 import Form from "../../components/Form";
 import * as yup from "yup";
-import { FiLock, FiMail, FiPhone, FiUser } from "react-icons/fi";
+import { FiMail, FiPhone, FiUser } from "react-icons/fi";
+import { useModal } from "../../utils/useModalSchema";
+import { UpdateAvatarModal } from "../../components/UpdateAvatarModal";
 
 const UserSettings = () => {
   const { teacher, updatedSettingsInfo } = useContext(TeacherContext);
+
+  const { isModalOpen, openModal } = useModal();
+
   const avatarUrl = useAvatarUrl(teacher);
 
   const [selectedDisciplines, setSelectedDisciplines] = useState([]);
@@ -57,12 +62,10 @@ const UserSettings = () => {
     setSelectedDisciplines(
       typeof value === "string" ? value.split(",") : value
     );
-    console.log(selectedDisciplines, "checkMarks");
   };
 
   const onSubmitFunction = async (data) => {
     data = { ...data, selectedDisciplines };
-    console.log("Dados do formulário:", data);
 
     await updatedSettingsInfo(data);
     console.log("Disciplinas selecionadas:", selectedDisciplines);
@@ -77,15 +80,23 @@ const UserSettings = () => {
           <div className="ctn-photo">
             <div className="title">
               <h3>Foto do perfil</h3>
+
               <FaCamera />
             </div>
 
             <div className="photo">
               <img src={avatarUrl} alt="avatar" />
-              <FaCamera />
+              <FaCamera
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openModal();
+                }}
+              />
             </div>
           </div>
-
+          <div className="modal">
+            {isModalOpen && <UpdateAvatarModal teacher={teacher} />}
+          </div>
           <div className="ctn-map">
             <div className="ctn-title">
               <h3>Endereço</h3>
@@ -102,12 +113,14 @@ const UserSettings = () => {
             <Form
               onSubmit={onSubmitFunction}
               inputs={inputs}
-              selectedDisciplines={selectedDisciplines} // Passe as disciplinas selecionadas
-              setSelectedDisciplines={setSelectedDisciplines} // Passe a função para atualizar as disciplinas selecionadas
+              selectedDisciplines={selectedDisciplines}
+              setSelectedDisciplines={setSelectedDisciplines}
               handleChange={handleChange}
             />
           </div>
         </ContentRow>
+
+        {isModalOpen && <Backdrop />}
       </Content>
     </Container>
   );
