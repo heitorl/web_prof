@@ -14,7 +14,7 @@ export const ImputSearch = ({ setTeacherList }) => {
     const fetchTeacherList = async () => {
       try {
         const response = await findAllTeacher();
-
+        console.log(response, "dt");
         const allDisciplines = response.data.reduce((acc, teacher) => {
           const disciplinas = teacher.disciplines[0]?.disciplines;
           return acc.concat(disciplinas);

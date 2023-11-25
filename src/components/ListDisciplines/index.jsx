@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
 
 const ListDisciplines = () => {
-  const { teacher } = useContext(TeacherContext);
+  const { user } = useContext(TeacherContext);
   const [disciplines, setDisciplines] = useState([]);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -20,9 +20,9 @@ const ListDisciplines = () => {
 
   useEffect(() => {
     setDisciplines(
-      teacher.disciplines.length ? teacher.disciplines[0].disciplines : []
+      user.disciplines.length ? user.disciplines[0].disciplines : []
     );
-  }, [teacher]);
+  }, [user]);
 
   return (
     <div>

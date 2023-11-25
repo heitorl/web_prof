@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import userNull from "../../assets/undefined.png";
 
 const dragActive = css`
   border-color: #78e5d5;

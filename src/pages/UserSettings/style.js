@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 16px;
+  padding: 10px;
   display: flex;
 
   .content-info {
@@ -103,6 +103,15 @@ export const Content = styled.div`
   }
 `;
 
+export const ContentTest = styled.div`
+  padding: 12px;
+`;
+
+export const ContainerSideBar = styled.div`
+  backdrop-filter: blur(100px);
+  height: 100%;
+`;
+
 export const ContentRow = styled.div`
   width: 70%;
   display: flex;
@@ -142,6 +151,6 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Cor de fundo escura com transparência */
-  z-index: 999; /* Um valor maior que o z-index do modal */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 `;

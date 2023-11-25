@@ -1,18 +1,11 @@
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Formn } from "./style";
 import Button from "../Button";
+import { Formn } from "./style";
 import Input from "../Input";
 import { createValidationSchemaUtil } from "../../utils/createValidationSchema";
-import MultipleSelectCheckmarks from "../Checkmarks";
-import ListDisciplines from "../ListDisciplines";
-const Form = ({
-  onSubmit,
-  inputs,
-  selectedDisciplines,
-  setSelectedDisciplines,
-  handleChange,
-}) => {
+
+const Form = ({ onSubmit, inputs }) => {
   const schema = createValidationSchemaUtil(inputs);
 
   const {
@@ -25,9 +18,7 @@ const Form = ({
   });
 
   const onSubmitFunction = async (data) => {
-    const { selectedDisciplines, ...formData } = data;
-
-    await onSubmit(formData);
+    await onSubmit(data);
     reset();
   };
 
@@ -43,21 +34,8 @@ const Form = ({
           register={register}
           name={input.name}
           error={errors[input.name]?.message}
-          value={input.defaultValue}
         />
       ))}
-      <div className="check-disc">
-        <h3>Selecione até 3 disciplinas para ensinar: </h3>
-        <MultipleSelectCheckmarks
-          selectedDisciplines={selectedDisciplines}
-          setSelectedDisciplines={setSelectedDisciplines}
-          handleChange={handleChange}
-        />
-      </div>
-      <div className="my-disc">
-        <h3>Disciplinas que ensino:</h3>
-        <ListDisciplines />
-      </div>
 
       <Button type="submit">Enviar</Button>
     </Formn>

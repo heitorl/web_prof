@@ -1,18 +1,15 @@
-// import React, { useContext } from "react";
-// import { Outlet, useNavigate } from "react-router-dom";
-// import { TeacherContext } from "../providers/TeacherContext";
+import React, { useContext } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { TeacherContext } from "../providers/TeacherContext";
 
-// const ProtectedRoutes = () => {
-//   const { token } = useContext(TeacherContext)
-//   console.log(token, '---')
-//   const navigate = useNavigate()
-//   console.log(token, '===')
-//   return (
-//     <>
-//       {token ? <Outlet /> : navigate("/") }
-    
-//     </>
-//   )
-// }
+export const ProtectedRoutes = () => {
+  const { teacher, token } = useContext(TeacherContext);
 
-// export default ProtectedRoutes
+  return <>{teacher ? <Outlet /> : <Navigate to="/" />}</>;
+};
+
+export const PublicRoutes = () => {
+  const { teacher, token } = useContext(TeacherContext);
+
+  return <>{!teacher ? <Outlet /> : <Navigate to="/dashboard" />}</>;
+};

@@ -3,7 +3,7 @@ import { Container, ContentGeral } from "./style";
 import { IoIosPerson, IoIosContacts, IoIosLogOut } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { TbLayoutDashboard } from "react-icons/tb";
-import { FaRegAddressCard } from "react-icons/fa";
+import { FaRegAddressCard, FaUserTie } from "react-icons/fa";
 import { useContext } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { useEffect } from "react";
@@ -42,8 +42,8 @@ export const Sidebar = () => {
             </div>
 
             <div className="ctn-icon">
-              <IoIosPerson />
-              <Link to="/search">Buscar Professor</Link>
+              <FaUserTie />
+              <Link to="/profile">Meu perfil</Link>
             </div>
 
             <div className="ctn-icon">
@@ -59,7 +59,7 @@ export const Sidebar = () => {
           <div className="ctn-links">
             <div className="ctn-icon">
               <FaRegAddressCard />
-              <Link>Meu Endereço</Link>
+              <Link to="/address">Meu Endereço</Link>
             </div>
 
             <div className="ctn-icon">

@@ -40,6 +40,14 @@ export const ContainerSearch = styled.div`
   align-items: center;
   padding-top: 30px;
 
+  .modal {
+    top: 50%;
+
+    position: fixed;
+
+    z-index: 1000;
+  }
+
   .ctn-title {
     display: flex;
     justify-content: center;
@@ -47,6 +55,11 @@ export const ContainerSearch = styled.div`
     align-items: center;
     width: 100%;
     height: 120px;
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+
     div {
       display: flex;
       margin-top: 2px;
@@ -64,4 +77,14 @@ export const ContainerSearch = styled.div`
       color: rgb(113, 128, 150);
     }
   }
+`;
+
+export const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 `;

@@ -9,31 +9,21 @@ export const Formn = styled.form`
   }
   > div {
     margin-top: 14px;
-  }
+    color: rgb(113, 128, 150);
 
-  .my-disc {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    align-items: center;
-    h3 {
-      color: rgb(105, 105, 105);
-      margin-bottom: 10px;
-      text-align: left;
-      width: 100%;
+    svg {
+      color: var(--primary);
+    }
+
+    label {
+      display: flex;
+
+      input {
+        margin-right: 2px;
+      }
     }
   }
-
-  .check-disc {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    align-items: center;
-    h3 {
-      color: rgb(105, 105, 105);
-
-      text-align: left;
-      width: 100%;
-    }
+  button {
+    margin-top: 20px;
   }
 `;

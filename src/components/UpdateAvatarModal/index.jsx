@@ -6,10 +6,10 @@ import { ImagePreview } from "../ImagePreview";
 import { filesize } from "filesize";
 import { TeacherContext } from "../../providers/TeacherContext";
 
-export const UpdateAvatarModal = ({ teacher }) => {
+export const UpdateAvatarModal = ({ user }) => {
   const { imageUploaded, setImageUploaded, requestAvatarUpload } =
     useContext(TeacherContext);
-  const avatarUrl = useAvatarUrl(teacher);
+  const avatarUrl = useAvatarUrl(user);
 
   const onDropAccepted = (acceptedFiles) => {
     const imageFile = acceptedFiles.filter(
