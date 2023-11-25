@@ -1,9 +1,7 @@
-import { useEffect } from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { IoIosSchool } from "react-icons/io";
 import { MdOutlineMail, MdNotifications } from "react-icons/md";
 import { TeacherContext } from "../../providers/TeacherContext";
-import userNull from "../../assets/usernull.jpg";
 
 import {
   Container,
@@ -11,18 +9,17 @@ import {
   ContentNotification,
   ContentPerfil,
 } from "./styles";
-import { FaUser } from "react-icons/fa";
 import useAvatarUrl from "../../utils/getAvatarForUser";
 
 export const Header = () => {
   // const { getImageAvatar } = useContext(TeacherContext);
 
-  const { teacher } = useContext(TeacherContext);
+  const { user } = useContext(TeacherContext);
 
   // const [anchorElUser, setAnchorElUser] = useState(null);
   // const [teacherData, setTeacherData] = useState(null);
 
-  const avatarUrl = useAvatarUrl(teacher);
+  const avatarUrl = useAvatarUrl(user);
 
   // useEffect(() => {
   //   const user = localStorage.getItem("@WebProf:user");
@@ -49,14 +46,12 @@ export const Header = () => {
 
       <ContentPerfil>
         <div className="ctn-name">
-          <p>{`${
-            teacher.name.charAt(0).toUpperCase() + teacher.name.slice(1)
-          } ${
-            teacher.lastName.charAt(0).toUpperCase() + teacher.lastName.slice(1)
+          <p>{`${user.name.charAt(0).toUpperCase() + user.name.slice(1)} ${
+            user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
           }`}</p>
-          <p>{teacher.email}</p>
+          <p>{user.email}</p>
         </div>
-        <div className="ctn-avatar" onClick="">
+        <div className="ctn-avatar">
           <img src={avatarUrl} alt="Avatar" />
         </div>
       </ContentPerfil>

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../providers/TeacherContext";
-import userNull from "../assets/usernull.jpg";
+import userNull from "../assets/undefined.png";
 
 const useAvatarUrl = (teacher) => {
   const [avatarUrl, setAvatarUrl] = useState("");

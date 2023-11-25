@@ -1,5 +1,13 @@
 import React, { useState, useRef } from "react";
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@material-ui/core";
+import {
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import { useEffect } from "react";
 
@@ -18,12 +26,10 @@ function EditDescription() {
   };
 
   const handleSave = async () => {
-    // faça algo com a descrição salva
     // const body = {
     //   resume: description
     // };
     // const test = await editResumeFromCurriculum(token, body);
-    console.log(description, 'laklak')
     handleClose();
   };
 
@@ -57,7 +63,9 @@ function EditDescription() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleSave} color="primary">Salvar</Button>
+          <Button onClick={handleSave} color="primary">
+            Salvar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

@@ -1,40 +1,149 @@
-import { useContext } from "react";
+import { useContext, useState } from "react"; // Importe useState
 import Header from "../../components/Header";
 import useAvatarUrl from "../../utils/getAvatarForUser";
-import { Container, Content } from "./style";
+import {
+  Container,
+  ContentRow,
+  Content,
+  Backdrop,
+  ContainerSideBar,
+} from "./style";
 import { TeacherContext } from "../../providers/TeacherContext";
-import { FaCamera } from "react-icons/fa";
+import { FaCamera, FaMapMarked } from "react-icons/fa";
 import Sidebar from "../../components/Sidebar";
-import LocationMap from "../../components/LocationMap";
 import GoogleMapWithGeocoding from "../../components/LocationMap";
+import Form from "../../components/FormSetting";
+import * as yup from "yup";
+import { FiMail, FiPhone, FiUser } from "react-icons/fi";
+import { useModal } from "../../utils/useModalSchema";
+import { UpdateAvatarModal } from "../../components/UpdateAvatarModal";
 
 const UserSettings = () => {
-  const { teacher } = useContext(TeacherContext);
-  const avatarUrl = useAvatarUrl(teacher);
-  console.log(teacher);
+  const { updatedSettingsInfo, user } = useContext(TeacherContext);
+
+  const { isModalOpen, openModal } = useModal();
+
+  const avatarUrl = useAvatarUrl(user);
+
+  const [selectedDisciplines, setSelectedDisciplines] = useState([]);
+  const inputs = [
+    {
+      name: "name",
+      validation: () => yup.string(),
+      icon: FiUser,
+      label: "Nome",
+      placeholder: user.name,
+      type: "text",
+    },
+    {
+      name: "lastName",
+      validation: () => yup.string(),
+      icon: FiUser,
+      label: "sobrenome",
+      placeholder: user.lastName,
+      type: "text",
+    },
+    {
+      name: "email",
+      validation: () => yup.string(),
+      icon: FiMail,
+      label: "email",
+      placeholder: user.email,
+      type: "text",
+    },
+    {
+      name: "phone",
+      validation: () => yup.string(),
+      icon: FiPhone,
+      label: "Telefone",
+      placeholder: user.curriculum?.celullar || "numero de telefone",
+      type: "text",
+    },
+  ];
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDisciplines(
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
+  const onSubmitFunction = async (data) => {
+    data = { ...data, selectedDisciplines };
+
+    await updatedSettingsInfo(data);
+    console.log("Disciplinas selecionadas:", selectedDisciplines);
+  };
 
   return (
     <Container>
       <Header />
       <Content>
-        <Sidebar />
+        <ContainerSideBar>
+          <Sidebar />
+        </ContainerSideBar>
+
         <div className="content-info">
           <div className="ctn-photo">
             <div className="title">
               <h3>Foto do perfil</h3>
+
               <FaCamera />
             </div>
 
             <div className="photo">
               <img src={avatarUrl} alt="avatar" />
-              <FaCamera />
+              <FaCamera
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openModal();
+                }}
+              />
             </div>
           </div>
-
-          <div>
-            <GoogleMapWithGeocoding addressData={teacher.address} />
+          <div className="modal">
+            {isModalOpen && <UpdateAvatarModal user={user} />}
+          </div>
+          <div className="ctn-map">
+            <div className="ctn-title">
+              <h3>Endereço</h3>
+              <FaMapMarked />
+            </div>
+            <GoogleMapWithGeocoding addressData={user.address} />
           </div>
         </div>
+        <ContentRow>
+          <div className="containt-form">
+            <div className="title">
+              <h2>Informações gerais 🙂</h2>
+            </div>
+            <Form
+              onSubmit={onSubmitFunction}
+              inputs={inputs}
+              selectedDisciplines={selectedDisciplines}
+              setSelectedDisciplines={setSelectedDisciplines}
+              handleChange={handleChange}
+            />
+          </div>
+        </ContentRow>
+        <ContentRow>
+          <div className="containt-form">
+            <div className="title">
+              <h2>Informações gerais 🙂</h2>
+            </div>
+            <Form
+              onSubmit={onSubmitFunction}
+              inputs={inputs}
+              selectedDisciplines={selectedDisciplines}
+              setSelectedDisciplines={setSelectedDisciplines}
+              handleChange={handleChange}
+            />
+          </div>
+        </ContentRow>
+
+        {isModalOpen && <Backdrop />}
       </Content>
     </Container>
   );

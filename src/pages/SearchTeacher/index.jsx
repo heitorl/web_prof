@@ -68,8 +68,8 @@ const TeacherSearch = () => {
             Faça uma busca personalizada e encontre o seu professor perfeito.
           </span>
           <div>
-            <CheckboxesTags />
-            <CheckboxesTags />
+            {/* <CheckboxesTags />
+            <CheckboxesTags /> */}
           </div>
         </div>
         <div className="ctn-teachers">

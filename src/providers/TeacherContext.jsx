@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { api } from "../services/api/api";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const TeacherContext = createContext({
   getImageAvatar: async (user) => {},
@@ -10,26 +11,56 @@ export const TeacherContext = createContext({
 });
 
 export const TeacherProvider = ({ children }) => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+  const [imageUploaded, setImageUploaded] = useState({});
 
-  const [data, setData] = useState(() => {
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
     const token = localStorage.getItem("@TOKEN");
-    const user = localStorage.getItem("@WebProf:user");
+    const userId = localStorage.getItem("@USERID");
 
-    if (token && user) {
-      return { token, user: JSON.parse(user) };
-    }
+    const autoLoginUser = async () => {
+      try {
+        setLoading(true);
 
-    return {};
-  });
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        const response = await api.get(`/getUser/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setData((prevData) => ({
+          token: token,
+          user: response.data,
+        }));
+
+        navigate(pathname);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    autoLoginUser();
+  }, []);
 
   const registerTeacher = async (formData) => {
     try {
       await api.post("/teacher/register", formData);
-      //futuro toast
+      toast.success("Registro bem-sucedido! Agora você pode fazer login.");
       navigate("/teacher/login");
     } catch (error) {
       console.log(error);
+      toast.error(
+        "Ops! Algo deu errado durante o registro. Por favor, tente novamente."
+      );
     }
   };
 
@@ -41,20 +72,28 @@ export const TeacherProvider = ({ children }) => {
 
       setData({ token, user });
 
+      localStorage.setItem("@USERID", user.id);
+
       localStorage.setItem("@TOKEN", token);
-      localStorage.setItem("@WebProf:user", JSON.stringify(user));
+      toast.success("Login bem-sucedido! Bem-vindo ao seu painel.");
 
       navigate("/dashboard");
     } catch (error) {
+      toast.error(
+        "Login error. Por favor check suas credenciais e tente novamente."
+      );
       console.log(error);
     }
   };
 
   const findAllTeacher = async () => {
     try {
-      const { data } = await api.get("/teacher/search");
-
-      return data;
+      const response = await api.get("/student/search", {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +129,38 @@ export const TeacherProvider = ({ children }) => {
   const teacherLogout = () => {
     setData(null);
     localStorage.clear();
+    toast.success("Logout bem-sucedido. Até a próxima!");
     navigate("/");
+    window.location.reload();
+  };
+
+  const updatedSettingsInfo = async (formData) => {
+    try {
+      const response = await axios.patch(
+        "http://localhost:3000/teacher/updatedInfo",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      setData((prevData) => ({
+        ...prevData,
+        user: {
+          ...prevData.user,
+          ...response.data,
+        },
+      }));
+      toast.success("Suas informações foram atualizadas! ", {
+        icon: "🛠️",
+      });
+    } catch (error) {
+      toast.error("Opa! Algo deu errado. Tente novamente.");
+      console.error(error);
+      return null;
+    }
   };
 
   const getImageAvatar = async (user) => {
@@ -118,6 +188,102 @@ export const TeacherProvider = ({ children }) => {
     }
   };
 
+  const updateFile = (data) => {
+    setImageUploaded((prevData) => ({ ...prevData, ...data }));
+  };
+
+  const requestAvatarUpload = async (file) => {
+    try {
+      setLoading(true);
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const response = await api.patch("teacher/avatar", file, {
+        onUploadProgress: (event) => {
+          const progress = parseInt(
+            Math.round((event.loaded * 100) / event.total)
+          );
+          updateFile({ progress });
+        },
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+        responseType: "blob",
+      });
+
+      if (response.data instanceof Blob) {
+        const blobUrl = URL.createObjectURL(response.data);
+
+        updateFile({
+          uploaded: true,
+          url: blobUrl,
+        });
+      } else {
+        toast.error("A resposta não contém dados de imagem válidos.");
+        updateFile({
+          error: true,
+        });
+      }
+    } catch (error) {
+      toast.error(
+        "Opa! Algo deu errado com o upload do avatar. Tente novamente."
+      );
+      updateFile({
+        error: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createOrUpdatedAddress = async (formData) => {
+    try {
+      setLoading(true);
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const response = await axios.patch(
+        "http://localhost:3000/address",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      console.log(response.data, "resdat");
+
+      setData((prevData) => {
+        const updatedUser = {
+          ...prevData.user,
+          address: {
+            ...prevData.user.address,
+            ...response.data,
+          },
+        };
+
+        const updatedData = {
+          ...prevData,
+          user: updatedUser,
+        };
+
+        console.log(updatedData, "datanew");
+        toast.success("Suas informações foram atualizadas! ", {
+          icon: "🛠️",
+        });
+
+        return updatedData;
+      });
+    } catch (error) {
+      toast.error("Opa! Algo deu errado. Tente novamente.");
+      console.error(error);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // const editResumeFromCurriculum = async (token, resumeData) => {
   //   try {
   //     const { data } = await axios.patch(
@@ -141,13 +307,21 @@ export const TeacherProvider = ({ children }) => {
     <TeacherContext.Provider
       value={{
         teacher: data.user,
+        user: data.user,
         token: data.token,
+        loading,
         registerTeacher,
         loginTeacher,
         teacherLogout,
         valueFind,
         findAllTeacher,
         getImageAvatar,
+        updatedSettingsInfo,
+        imageUploaded,
+        setImageUploaded,
+        requestAvatarUpload,
+        createOrUpdatedAddress,
+
         // editResumeFromCurriculum
       }}
     >
