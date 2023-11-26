@@ -1,22 +1,23 @@
 import Header from "../../../components/Header";
 import { Sidebar } from "../../../components/Sidebar";
 import { Container, Content } from "./style";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { TeacherContext } from "../../../providers/TeacherContext";
 import { MdOutlineStarPurple500, MdMessage } from "react-icons/md";
 import Button from "../../../components/Button";
 import EditDescription from "../../../components/DialogDescription";
 import { Chat } from "../../../components/Chat";
 import useAvatarUrl from "../../../utils/getAvatarForUser";
+import { StandardMessagePerfil } from "../../../components/StandardMessagePerfil";
 
 const Profile = () => {
-  const { valueFind, teacher } = useContext(TeacherContext);
+  const { valueFind, user } = useContext(TeacherContext);
 
-  console.log(teacher);
+  console.log(user);
 
   const [showChat, setShowChat] = useState(false);
 
-  const avatarUrl = useAvatarUrl(teacher);
+  const avatarUrl = useAvatarUrl(user);
 
   const handleCloseChat = () => {
     setShowChat(false);
@@ -31,12 +32,13 @@ const Profile = () => {
       <Header />
       <Content>
         <Sidebar />
+
         <div className="main">
           <div className="editor">
             <EditDescription />
           </div>
           <div className="box-resume">
-            <span>{teacher.curriculum?.resume}</span>
+            <StandardMessagePerfil user={user} />
           </div>
         </div>
         <div className="ctn-profile">
@@ -44,7 +46,7 @@ const Profile = () => {
             <div className="ctn-img">
               <img src={avatarUrl} alt="teacher" />
               <p>
-                {teacher?.name} {teacher?.lastName}
+                {user?.name} {user?.lastName}
               </p>
               <div className="star">
                 <MdOutlineStarPurple500 />

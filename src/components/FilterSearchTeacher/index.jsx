@@ -3,13 +3,17 @@ import Button from "../Button";
 
 import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
-import { ContainerTeachers } from "./style";
+import { Backdrop, ContainerTeachers } from "./style";
 import { FaMap } from "react-icons/fa";
 import userNull from "../../assets/undefined.png";
+import { useModal } from "../../utils/useModalSchema";
+import { Profile } from "../profile";
 
 export const FilterSearchTeacher = ({ teacherList }) => {
   const { getImageAvatar } = useContext(TeacherContext);
   const [avatarUrls, setAvatarUrls] = useState([]);
+
+  const { isModalOpen, openModal } = useModal();
 
   useEffect(() => {
     async function fetchAvatar() {
@@ -48,8 +52,10 @@ export const FilterSearchTeacher = ({ teacherList }) => {
     fetchAvatar();
   }, [teacherList, getImageAvatar]);
 
-  const handleSelect = () => {
-    return;
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
+
+  const handleObjectSelection = (object) => {
+    setSelectedTeacher(object);
   };
 
   return (
@@ -102,7 +108,13 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                     </div>
                   </div>
                   <div className="ctn-button">
-                    <Button onClick={() => handleSelect(teacher)}>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleObjectSelection(teacher);
+                        openModal();
+                      }}
+                    >
                       SABER MAIS
                     </Button>
                   </div>
@@ -111,6 +123,10 @@ export const FilterSearchTeacher = ({ teacherList }) => {
             );
           })}
       </ul>
+      <div className="modal">
+        {isModalOpen && <Profile teacher={selectedTeacher} />}
+      </div>
+      {isModalOpen && <Backdrop />}
     </ContainerTeachers>
   );
 };

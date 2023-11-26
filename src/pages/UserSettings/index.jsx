@@ -84,52 +84,38 @@ const UserSettings = () => {
         <ContainerSideBar>
           <Sidebar />
         </ContainerSideBar>
-
-        <div className="content-info">
-          <div className="ctn-photo">
-            <div className="title">
-              <h3>Foto do perfil</h3>
-
-              <FaCamera />
-            </div>
-
-            <div className="photo">
-              <img src={avatarUrl} alt="avatar" />
-              <FaCamera
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openModal();
-                }}
-              />
-            </div>
-          </div>
-          <div className="modal">
-            {isModalOpen && <UpdateAvatarModal user={user} />}
-          </div>
-          <div className="ctn-map">
-            <div className="ctn-title">
-              <h3>Endereço</h3>
-              <FaMapMarked />
-            </div>
-            <GoogleMapWithGeocoding addressData={user.address} />
-          </div>
-        </div>
         <ContentRow>
-          <div className="containt-form">
-            <div className="title">
-              <h2>Informações gerais 🙂</h2>
+          <div className="content-info item">
+            <div className="ctn-photo">
+              <div className="title">
+                <h3>Foto do perfil</h3>
+
+                <FaCamera />
+              </div>
+
+              <div className="photo">
+                <img src={avatarUrl} alt="avatar" />
+                <FaCamera
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal();
+                  }}
+                />
+              </div>
             </div>
-            <Form
-              onSubmit={onSubmitFunction}
-              inputs={inputs}
-              selectedDisciplines={selectedDisciplines}
-              setSelectedDisciplines={setSelectedDisciplines}
-              handleChange={handleChange}
-            />
+            <div className="modal">
+              {isModalOpen && <UpdateAvatarModal user={user} />}
+            </div>
+            <div className="ctn-map">
+              <div className="ctn-title">
+                <h3>Endereço</h3>
+                <FaMapMarked />
+              </div>
+              <GoogleMapWithGeocoding addressData={user.address} />
+            </div>
           </div>
-        </ContentRow>
-        <ContentRow>
-          <div className="containt-form">
+
+          <div className="containt-form item">
             <div className="title">
               <h2>Informações gerais 🙂</h2>
             </div>

@@ -8,15 +8,33 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 10px;
   display: flex;
+`;
+
+export const ContentTest = styled.div`
+  padding: 12px;
+`;
+
+export const ContainerSideBar = styled.div`
+  backdrop-filter: blur(100px);
+  height: 100%;
+`;
+
+export const ContentRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 50px;
+  width: 100%;
+
+  .item {
+    flex: 1 1 calc(50% - 10px);
+  }
 
   .content-info {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    padding: 30px;
-    margin-left: 20px;
+    /* padding: 30px; */
 
     .modal {
       position: fixed;
@@ -28,7 +46,7 @@ export const Content = styled.div`
   }
 
   .ctn-photo {
-    width: 400px;
+    max-width: 420px;
     border-radius: 10px;
     height: 300px;
     background-color: #ffffff;
@@ -77,7 +95,7 @@ export const Content = styled.div`
   }
 
   .ctn-map {
-    width: 420px;
+    max-width: 420px;
     height: 460px;
     display: flex;
     background-color: #ffffff;
@@ -101,32 +119,16 @@ export const Content = styled.div`
       }
     }
   }
-`;
 
-export const ContentTest = styled.div`
-  padding: 12px;
-`;
-
-export const ContainerSideBar = styled.div`
-  backdrop-filter: blur(100px);
-  height: 100%;
-`;
-
-export const ContentRow = styled.div`
-  width: 70%;
-  display: flex;
-
-  padding: 30px 30px 30px 0px;
   .containt-form {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    max-width: 650px;
     height: 830px;
     background-color: rgb(255, 255, 255);
     align-items: center;
-    margin: left;
-    margin-left: 60px;
+    /* margin-left: 60px; */
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
     .title {
@@ -153,4 +155,10 @@ export const Backdrop = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+`;
+
+export const ContainerRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
 `;
