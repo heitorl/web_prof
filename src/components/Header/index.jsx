@@ -23,16 +23,6 @@ export const Header = () => {
   const [notifications, setNotifications] = useState([]);
   const [firstMount, setFirstMount] = useState(true);
 
-  // useEffect(() => {
-  //   retrieveNotifications()
-  //     .then(({ data }) => {
-  //       setNotifications(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Erro ao recuperar notificações:", error);
-  //     });
-  // }, [retrieveNotifications]);
-
   useEffect(() => {
     const fetchNotifications = async () => {
       try {

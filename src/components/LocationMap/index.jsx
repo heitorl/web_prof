@@ -5,10 +5,10 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const GoogleMapWithGeocoding = ({ addressData }) => {
-  const apiKey = process.env.API_KEY_MAPS;
+  const apiKey = process.env.REACT_APP_API_KEY_MAPS;
   const [coordinates, setCoordinates] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0); // Initialize progress state
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (addressData) {
@@ -30,7 +30,11 @@ const GoogleMapWithGeocoding = ({ addressData }) => {
         }
       };
 
-      fetchCoordinates();
+      const delay = 5000;
+
+      const timeoutId = setTimeout(fetchCoordinates, delay);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [addressData]);
 
@@ -43,6 +47,8 @@ const GoogleMapWithGeocoding = ({ addressData }) => {
     id: "google-map-script",
     googleMapsApiKey: apiKey,
   });
+
+  console.log(coordinates, "cordinatess");
 
   return isLoaded ? (
     coordinates ? (

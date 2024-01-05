@@ -12,7 +12,6 @@ export const WidgetNotification = ({ notifications, setNotifications }) => {
   const [showChat, setShowChat] = useState(false);
   const { getImageAvatar } = useContext(TeacherContext);
   const [selectedNotification, setSelectedNotification] = useState({});
-  const [avatarUrls, setAvatarUrls] = useState({});
 
   const handleCloseChat = () => {
     setShowChat(false);
@@ -33,7 +32,6 @@ export const WidgetNotification = ({ notifications, setNotifications }) => {
   useEffect(() => {
     const fetchAvatarUrls = async () => {
       try {
-        console.log("IN LOOPIING");
         const updatedNotifications = await Promise.all(
           notifications.map(async (notification) => {
             const senderNotification =

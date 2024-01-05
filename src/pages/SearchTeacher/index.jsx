@@ -21,7 +21,6 @@ const TeacherSearch = () => {
     history("/teacher/info");
   };
 
-  // Busca a lista de professores ao carregar a página
   useEffect(() => {
     const fetchTeacherList = async () => {
       try {

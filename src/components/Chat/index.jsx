@@ -107,8 +107,6 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
     fetchAllMessages();
   }, [retrieveMessages, setMessages]);
 
-  console.log(messages, "-----messg");
-
   return (
     <ChatModal>
       <div className="chat-header">
