@@ -6,10 +6,15 @@ import { FiUser, FiMail, FiLock } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useContext } from "react";
+import { TeacherContext } from "../../../providers/TeacherContext";
 
 const StudentRegister = () => {
+  const { registerUser } = useContext(TeacherContext);
+
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório!"),
+    lastName: yup.string().required("Campo obrigatório!"),
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
     password: yup
       .string()
@@ -29,7 +34,9 @@ const StudentRegister = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFuction = (data) => {};
+  const onSubmitFuction = async (data) => {
+    await registerUser(data, "student");
+  };
 
   return (
     <Container>
@@ -46,6 +53,14 @@ const StudentRegister = () => {
               register={register}
               name="name"
               error={errors.name?.message}
+            />
+            <Input
+              icon={FiUser}
+              label="Sobrenome"
+              placeholder="sobrenome"
+              register={register}
+              name="lastName"
+              error={errors.lastName?.message}
             />
             <Input
               icon={FiMail}

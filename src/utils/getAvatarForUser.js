@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../providers/TeacherContext";
-import userNull from "../assets/undefined.png";
 
 const useAvatarUrl = (teacher) => {
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -9,12 +8,10 @@ const useAvatarUrl = (teacher) => {
   useEffect(() => {
     async function fetchAvatar() {
       try {
-        if (teacher.avatar) {
-          const response = await getImageAvatar(teacher);
+        if (teacher) {
+          const { avatarPath } = await getImageAvatar(teacher);
 
-          setAvatarUrl(response);
-        } else {
-          setAvatarUrl(userNull);
+          setAvatarUrl(avatarPath);
         }
       } catch (error) {
         console.log(error);

@@ -13,8 +13,6 @@ import { StandardMessagePerfil } from "../../../components/StandardMessagePerfil
 const Profile = () => {
   const { valueFind, user } = useContext(TeacherContext);
 
-  console.log(user);
-
   const [showChat, setShowChat] = useState(false);
 
   const avatarUrl = useAvatarUrl(user);

@@ -24,13 +24,8 @@ export const FilterSearchTeacher = ({ teacherList }) => {
 
         const urls = await Promise.all(
           teacherList.map(async (teacher) => {
-            if (!teacher.avatar) {
-              return userNull;
-            } else {
-              const response = await getImageAvatar(teacher);
-
-              return response;
-            }
+            const response = await getImageAvatar(teacher);
+            return response;
           })
         );
 
@@ -43,6 +38,7 @@ export const FilterSearchTeacher = ({ teacherList }) => {
           acc[teacherId] = url;
           return acc;
         }, {});
+
         setAvatarUrls(avatarUrlsObj);
       } catch (error) {
         console.error(error);
@@ -62,19 +58,19 @@ export const FilterSearchTeacher = ({ teacherList }) => {
     <ContainerTeachers>
       <ul>
         {teacherList &&
-          teacherList.map((teacher) => {
+          teacherList.map((user) => {
             return (
-              <li key={teacher.id}>
+              <li key={user.id}>
                 <div className="ctn-img">
-                  <img src={avatarUrls[teacher.id]} alt="avatar" />
+                  <img src={avatarUrls[user.id]?.avatarPath} alt="avatar" />
                 </div>
                 <div className="info">
                   <h2>
-                    {teacher.name} {teacher.lastName}
+                    {user.name} {user.lastName}
                   </h2>
                   <div className="ctn-disc">
-                    {teacher.disciplines &&
-                      teacher.disciplines[0]?.disciplines.map(
+                    {user.disciplines &&
+                      user.disciplines[0]?.disciplines.map(
                         (disc, index, array) => (
                           <span key={index}>
                             {disc}
@@ -101,8 +97,8 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                       <FaMap />
                       <p>
                         {" "}
-                        {teacher.distanceInKilometers
-                          ? `${teacher.distanceInKilometers} km`
+                        {user.distanceInKilometers
+                          ? `${user.distanceInKilometers} km`
                           : "?"}
                       </p>
                     </div>
@@ -111,7 +107,7 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleObjectSelection(teacher);
+                        handleObjectSelection(user);
                         openModal();
                       }}
                     >

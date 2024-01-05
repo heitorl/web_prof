@@ -4,6 +4,7 @@ import axios from "axios";
 import { api } from "../services/api/api";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import useAvatarUrl from "../utils/getAvatarForUser";
 
 export const TeacherContext = createContext({
   getImageAvatar: async (user) => {},
@@ -12,6 +13,7 @@ export const TeacherContext = createContext({
 
 export const TeacherProvider = ({ children }) => {
   const [data, setData] = useState({});
+
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -51,11 +53,11 @@ export const TeacherProvider = ({ children }) => {
     autoLoginUser();
   }, []);
 
-  const registerTeacher = async (formData) => {
+  const registerUser = async (formData, userType) => {
     try {
-      await api.post("/teacher/register", formData);
+      await api.post(`/${userType}/register`, formData);
       toast.success("Registro bem-sucedido! Agora você pode fazer login.");
-      navigate("/teacher/login");
+      navigate(`/${userType}/login`);
     } catch (error) {
       console.log(error);
       toast.error(
@@ -64,9 +66,9 @@ export const TeacherProvider = ({ children }) => {
     }
   };
 
-  const loginTeacher = async (formData) => {
+  const loginUser = async (formData, userType) => {
     try {
-      const response = await api.post("/teacher/login", formData);
+      const response = await api.post(`/${userType}/login`, formData);
 
       const { token, user } = response.data.message;
 
@@ -165,11 +167,9 @@ export const TeacherProvider = ({ children }) => {
 
   const getImageAvatar = async (user) => {
     try {
-      if (!user.avatar) return;
       const { data } = await axios.get(
         `http://localhost:3000/teacher/imagem/avatar`,
         {
-          responseType: "blob",
           // headers: {
           //   "Authorization": `Bearer ${token}`,
           // },
@@ -179,12 +179,23 @@ export const TeacherProvider = ({ children }) => {
         }
       );
 
-      const blobUrl = URL.createObjectURL(data);
-
-      return blobUrl;
+      return data;
     } catch (error) {
       console.error(error);
       return null;
+    }
+  };
+
+  const retrieveMessages = async (selectUser) => {
+    try {
+      const response = await api.get(`/messages/${selectUser.id}`, {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -252,8 +263,6 @@ export const TeacherProvider = ({ children }) => {
         }
       );
 
-      console.log(response.data, "resdat");
-
       setData((prevData) => {
         const updatedUser = {
           ...prevData.user,
@@ -268,7 +277,6 @@ export const TeacherProvider = ({ children }) => {
           user: updatedUser,
         };
 
-        console.log(updatedData, "datanew");
         toast.success("Suas informações foram atualizadas! ", {
           icon: "🛠️",
         });
@@ -281,6 +289,21 @@ export const TeacherProvider = ({ children }) => {
       return null;
     } finally {
       setLoading(false);
+    }
+  };
+
+  const retrieveNotifications = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/notification", {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+
+      return response;
+    } catch (err) {
+      console.error(err);
+      return null;
     }
   };
 
@@ -310,8 +333,8 @@ export const TeacherProvider = ({ children }) => {
         user: data.user,
         token: data.token,
         loading,
-        registerTeacher,
-        loginTeacher,
+        registerUser,
+        loginUser,
         teacherLogout,
         valueFind,
         findAllTeacher,
@@ -321,6 +344,8 @@ export const TeacherProvider = ({ children }) => {
         setImageUploaded,
         requestAvatarUpload,
         createOrUpdatedAddress,
+        retrieveNotifications,
+        retrieveMessages,
 
         // editResumeFromCurriculum
       }}

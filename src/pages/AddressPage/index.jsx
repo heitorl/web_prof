@@ -63,8 +63,6 @@ export const AddressPage = () => {
 
   const onSubmitFunction = async (data) => {
     const response = await createOrUpdatedAddress(data);
-
-    console.log(response);
   };
 
   return (

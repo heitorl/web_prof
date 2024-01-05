@@ -8,29 +8,73 @@ import {
   ContentLogo,
   ContentNotification,
   ContentPerfil,
+  Notification,
 } from "./styles";
 import useAvatarUrl from "../../utils/getAvatarForUser";
-
+import { useModal } from "../../utils/useModalSchema";
+import { WidgetNotification } from "../WidgetNotification";
+import { useState } from "react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 export const Header = () => {
-  // const { getImageAvatar } = useContext(TeacherContext);
+  const { user, retrieveNotifications } = useContext(TeacherContext);
 
-  const { user } = useContext(TeacherContext);
-
-  // const [anchorElUser, setAnchorElUser] = useState(null);
-  // const [teacherData, setTeacherData] = useState(null);
-
-  const avatarUrl = useAvatarUrl(user);
+  const { isModalOpen, openModal } = useModal();
+  const [notifications, setNotifications] = useState([]);
+  const [firstMount, setFirstMount] = useState(true);
 
   // useEffect(() => {
-  //   const user = localStorage.getItem("@WebProf:user");
-  //   if (user) {
-  //     setTeacherData(JSON.parse(user));
-  //   }
-  // }, []);
+  //   retrieveNotifications()
+  //     .then(({ data }) => {
+  //       setNotifications(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Erro ao recuperar notificações:", error);
+  //     });
+  // }, [retrieveNotifications]);
 
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await retrieveNotifications();
+
+        setNotifications((prevNotifications) => {
+          const newNotifications = data.filter(
+            (notification) =>
+              !prevNotifications.some((n) => n.id === notification.id)
+          );
+
+          if (firstMount && newNotifications.length > 0) {
+            toast.success(
+              "Você tem notificações que ainda não foram visualizadas",
+              {
+                icon: "🔔",
+                duration: 5000,
+              }
+            );
+            setFirstMount(false);
+          } else if (newNotifications.length > 0) {
+            toast.success("Você recebeu novas notificações!", {
+              icon: "🔔",
+              duration: 5000,
+            });
+          }
+
+          return data;
+        });
+      } catch (error) {
+        console.error("Erro ao recuperar notificações:", error);
+      }
+    };
+
+    fetchNotifications();
+
+    const intervalId = setInterval(fetchNotifications, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [firstMount]);
+
+  const avatarUrl = useAvatarUrl(user);
 
   return (
     <Container>
@@ -41,7 +85,25 @@ export const Header = () => {
 
       <ContentNotification>
         <MdOutlineMail />
-        <MdNotifications />
+        <div className="ctn-ntf">
+          <MdNotifications
+            className="notification"
+            onClick={(e) => {
+              e.stopPropagation();
+
+              openModal();
+            }}
+          />
+          {notifications.length && (
+            <Notification>{notifications.length}</Notification>
+          )}
+        </div>
+        {isModalOpen && (
+          <WidgetNotification
+            notifications={notifications}
+            setNotifications={setNotifications}
+          />
+        )}
       </ContentNotification>
 
       <ContentPerfil>

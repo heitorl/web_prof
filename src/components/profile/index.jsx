@@ -3,8 +3,21 @@ import { Container } from "./style";
 import Button from "../Button";
 import { MdMessage, MdOutlineStarPurple500 } from "react-icons/md";
 import useAvatarUrl from "../../utils/getAvatarForUser";
+import { useContext, useState } from "react";
+import { Chat } from "../Chat";
+import { TeacherContext } from "../../providers/TeacherContext";
 
 export const Profile = ({ teacher }) => {
+  const [showChat, setShowChat] = useState(false);
+  const { valueFind } = useContext(TeacherContext);
+
+  const handleCloseChat = () => {
+    setShowChat(false);
+  };
+
+  const handleOpenChat = () => {
+    setShowChat(true);
+  };
   const avatarUrl = useAvatarUrl(teacher);
 
   return (
@@ -36,13 +49,20 @@ export const Profile = ({ teacher }) => {
                 </div>
               </div>
               <div className="ctn-button">
-                <Button>
+                <Button onClick={handleOpenChat}>
                   <MdMessage /> Contatar
                 </Button>
               </div>
             </div>
           </div>
         </div>
+        {showChat && (
+          <Chat
+            onClose={handleCloseChat}
+            avatarUrl={avatarUrl}
+            teacher={teacher}
+          />
+        )}
       </div>
     </Container>
   );
