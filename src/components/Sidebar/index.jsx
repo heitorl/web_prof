@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { useEffect } from "react";
 import { useState } from "react";
+import { IoIosSchool } from "react-icons/io";
 
 export const Sidebar = () => {
   const { teacherLogout } = useContext(TeacherContext);
@@ -28,27 +29,41 @@ export const Sidebar = () => {
     <>
       <Container>
         <ContentGeral>
+          <div className="ctn-logo">
+            <IoIosSchool />
+          </div>
           <div className="ctn-title">
             <span>GERAL</span>
           </div>
+
           <div className="bar"></div>
 
           <div className="ctn-links">
             <div className="ctn-icon">
-              <TbLayoutDashboard />
-              <Link onClick={() => handleNavigation("/dashboard")}>
-                Dashboard
+              <Link to="/dashboard">
+                <TbLayoutDashboard />
               </Link>
+              <span>
+                <Link to="/dashboard">Dashboard</Link>
+              </span>
             </div>
 
             <div className="ctn-icon">
-              <FaUserTie />
-              <Link to="/profile">Meu perfil</Link>
+              <Link to="/profile">
+                <FaUserTie />
+              </Link>
+              <span>
+                <Link to="/profile">Meu perfil</Link>
+              </span>
             </div>
 
             <div className="ctn-icon">
-              <IoIosContacts />
-              <Link>Contatos</Link>
+              <Link>
+                <IoIosContacts />
+              </Link>
+              <span>
+                <Link>Contatos</Link>
+              </span>
             </div>
           </div>
           <div className="ctn-title">
@@ -58,20 +73,30 @@ export const Sidebar = () => {
           <div className="bar"></div>
           <div className="ctn-links">
             <div className="ctn-icon">
-              <FaRegAddressCard />
-              <Link to="/address">Meu Endereço</Link>
-            </div>
-
-            <div className="ctn-icon">
-              <FiSettings />
-              <Link onClick={() => handleNavigation("/settings")}>
-                Configuração
+              <Link to="/address">
+                <FaRegAddressCard />
               </Link>
+              <span>
+                <Link to="/address">Meu Endereço</Link>
+              </span>
             </div>
 
             <div className="ctn-icon">
-              <IoIosLogOut />
-              <Link onClick={teacherLogout}>Logout</Link>
+              <Link to="/settings">
+                <FiSettings />
+              </Link>
+              <span>
+                <Link to="/settings">Configuração</Link>
+              </span>
+            </div>
+
+            <div className="ctn-icon">
+              <Link onClick={teacherLogout}>
+                <IoIosLogOut />
+              </Link>
+              <span>
+                <Link onClick={teacherLogout}>Logout</Link>
+              </span>
             </div>
           </div>
         </ContentGeral>

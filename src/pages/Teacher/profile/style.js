@@ -7,19 +7,26 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  padding: 16px;
   display: flex;
-  justify-content: space-evenly;
+  width: 100%;
+  flex-direction: row;
+  height: 100%;
+
+  .row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding-top: 60px;
+  }
 
   .main {
     display: flex;
-
-    width: 50%;
-    height: 800px;
-    border: 2px solid black;
+    width: 60%;
+    border: 1px solid black;
     flex-direction: column;
     align-items: center;
+    background: rgb(248, 250, 252);
+
     .editor {
       width: 100%;
       display: flex;
@@ -39,25 +46,27 @@ export const Content = styled.div`
   .ctn-profile {
     display: flex;
     height: 520px;
-    box-shadow: 4px 4px 10px lightgrey;
+    box-shadow: lightgrey 4px 4px 10px;
     padding: 10px;
+    width: 300px;
+    background: #f8fafc;
+    border-radius: 8px;
   }
 
   .ctn-description {
     width: 100%;
     display: flex;
+    justify-content: center;
 
     .ctn-img {
       height: 100%;
       display: flex;
-      -webkit-box-pack: center;
+
       align-items: center;
-      /* justify-content: center; */
-      /* width: 100%; */
       flex-direction: column;
+      width: 100%;
       img {
         border-radius: 6px;
-        width: 240px;
         max-width: 100%;
         object-fit: cover;
         height: 210px;
@@ -117,4 +126,9 @@ export const Content = styled.div`
       }
     }
   }
+`;
+
+export const ContentSideBar = styled.div`
+  height: 100%;
+  backdrop-filter: blur(50px);
 `;

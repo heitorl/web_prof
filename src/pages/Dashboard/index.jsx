@@ -26,7 +26,12 @@ const Dashboard = () => {
     const findTeacher = async () => {
       try {
         const { data } = await findAllTeacher();
-        setTeacherList(data);
+
+        const teachersFiltered = data.filter(
+          (teacher) => teacher.id !== user.id
+        );
+
+        setTeacherList(teachersFiltered);
       } catch (error) {
         console.error(error);
       }
@@ -49,33 +54,35 @@ const Dashboard = () => {
         <ContentSideBar>
           <Sidebar />
         </ContentSideBar>
-
-        <div className="coll-view">
-          <ContainerSearch>
-            {isModalOpen && (
-              <div className="modal">
-                {" "}
-                <Warning />
+        <main className="main">
+          <div className="ctn-title">
+            {user.address && (
+              <div className="content">
+                <span>
+                  Faça uma busca personalizada e encontre o seu professor
+                  perfeito.
+                </span>
+                <ImputSearch setTeacherList={setTeacherList} />
               </div>
             )}
-            {isModalOpen && <Backdrop />}
-            <div className="ctn-title">
-              {user.address && (
-                <div className="content">
-                  <span>
-                    Faça uma busca personalizada e encontre o seu professor
-                    perfeito.
-                  </span>
-                  <ImputSearch setTeacherList={setTeacherList} />
+          </div>
+
+          <div className="coll-view">
+            <ContainerSearch>
+              {isModalOpen && (
+                <div className="modal">
+                  {" "}
+                  <Warning />
                 </div>
               )}
-            </div>
-          </ContainerSearch>
-          <div className="bar"></div>
-          {user.address && !!teacherList.length && (
-            <FilterSearchTeacher teacherList={teacherList} />
-          )}
-        </div>
+              {isModalOpen && <Backdrop />}
+            </ContainerSearch>
+            <div className="bar"></div>
+            {user.address && !!teacherList.length && (
+              <FilterSearchTeacher teacherList={teacherList} />
+            )}
+          </div>
+        </main>
       </Content>
     </Container>
   );

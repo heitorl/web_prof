@@ -58,7 +58,7 @@ const GoogleMapWithGeocoding = ({ addressData }) => {
           lng: +coordinates.lon,
           lat: +coordinates.lat,
         }}
-        zoom={20}
+        zoom={18}
       >
         <Marker
           position={{

@@ -35,6 +35,8 @@ const Form = ({
     reset();
   };
 
+  console.log(user, "uuuuuu");
+
   return (
     <Formn onSubmit={handleSubmit(onSubmitFunction)}>
       {inputs.map((input, index) => (
@@ -51,7 +53,7 @@ const Form = ({
         />
       ))}
 
-      {user.role === "teacher" && (
+      {user.disciplines && (
         <div>
           <div className="check-disc">
             <h3>Selecione até 3 disciplinas para ensinar: </h3>

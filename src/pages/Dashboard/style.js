@@ -8,8 +8,9 @@ export const Container = styled.div`
 `;
 
 export const ContentSideBar = styled.div`
-  height: 100%;
-  backdrop-filter: blur(50px);
+  display: flex;
+  align-items: center;
+  padding: 8px;
 `;
 
 export const Content = styled.div`
@@ -18,7 +19,13 @@ export const Content = styled.div`
   flex-direction: row;
   height: 100%;
 
-  .coll-view {
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .main .coll-view {
     display: flex;
     width: 100%;
 
@@ -26,35 +33,21 @@ export const Content = styled.div`
 
     .bar {
       border-bottom: 1px solid var(--primary);
-      width: 50%;
+      width: 75%;
       padding-top: 30px;
       margin: 0 auto;
     }
   }
-`;
 
-export const ContainerSearch = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 30px;
-
-  .modal {
-    top: 50%;
-
-    position: fixed;
-
-    z-index: 1000;
-  }
-
-  .ctn-title {
+  .main .ctn-title {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 120px;
+    padding-top: 30px;
+    padding-right: 15px;
+
     .content {
       display: flex;
       flex-direction: column;
@@ -72,10 +65,45 @@ export const ContainerSearch = styled.div`
     }
 
     span {
-      font-size: 1.5rem;
+      font-size: 20px;
       font-weight: bold;
-      color: rgb(113, 128, 150);
+      text-align: center;
+      padding: 5px;
+      color: #52525b;
+      font-family: roboto;
     }
+  }
+
+  @media (min-width: 1000px) {
+    .main {
+      width: 100%;
+    }
+    .main .ctn-title {
+      height: 120px;
+      width: 100%;
+      padding-right: 0px;
+    }
+    .main .ctn-title .content {
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+`;
+
+export const ContainerSearch = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+
+  .modal {
+    top: 50%;
+
+    position: fixed;
+
+    z-index: 1000;
   }
 `;
 

@@ -10,7 +10,7 @@ import { useModal } from "../../utils/useModalSchema";
 import { Profile } from "../profile";
 
 export const FilterSearchTeacher = ({ teacherList }) => {
-  const { getImageAvatar } = useContext(TeacherContext);
+  const { getImageAvatar, user } = useContext(TeacherContext);
   const [avatarUrls, setAvatarUrls] = useState([]);
 
   const { isModalOpen, openModal } = useModal();
@@ -53,7 +53,6 @@ export const FilterSearchTeacher = ({ teacherList }) => {
   const handleObjectSelection = (object) => {
     setSelectedTeacher(object);
   };
-
   return (
     <ContainerTeachers>
       <ul>

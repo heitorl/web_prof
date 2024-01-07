@@ -17,24 +17,24 @@ export const ContainerTeachers = styled.div`
   padding-top: 50px;
 
   ul {
-    width: 80%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    justify-items: center;
-    grid-row-gap: 50px;
-    padding-top: 30px;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+
     animation: ${fadeInDown} 0.5s;
 
     li {
-      width: 340px;
       display: flex;
-
-      height: 420px;
+      width: 280px;
+      height: 410px;
       border-radius: 8px;
       box-shadow: 0 0 10px gray;
       flex-direction: column;
+
+      background-color: white;
+      flex: none;
+      margin: 20px;
+
       .info {
         margin-left: 5px;
         display: flex;
@@ -113,7 +113,7 @@ export const ContainerTeachers = styled.div`
     }
     .ctn-img {
       display: flex;
-      max-width: 300px;
+      max-width: 252px;
       width: 100%;
       flex-direction: column;
       margin: 14px;
@@ -124,6 +124,29 @@ export const ContainerTeachers = styled.div`
         max-width: 100%;
         max-height: 100%;
         object-fit: cover;
+      }
+    }
+
+    @media (min-width: 1000px) {
+      width: 80%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      justify-items: center;
+      grid-row-gap: 50px;
+      padding-top: 30px;
+
+      li {
+        width: 330px;
+        height: 420px;
+
+        flex: auto;
+        margin: 0px;
+      }
+
+      li .ctn-img {
+        max-width: 300px;
       }
     }
   }

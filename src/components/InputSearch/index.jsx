@@ -70,7 +70,7 @@ export const ImputSearch = ({ setTeacherList }) => {
         id="combo-box-demo"
         options={disciplines}
         getOptionLabel={getOptionLabel}
-        sx={{ width: 280 }}
+        sx={{ width: 280, background: "white" }}
         renderInput={(params) => <TextField {...params} label="Disciplinas" />}
         value={searchValue}
         onChange={handleInputChange}

@@ -6,9 +6,19 @@ export const ContainerForm = styled.form`
   justify-content: center;
   align-items: center;
   padding-top: 12px;
+  flex-direction: column;
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+
+    .btn-submit {
+      margin-left: 12px;
+      margin-top: 4px;
+    }
+  }
 
   svg {
-    color: rgb(113, 128, 150);
+    color: var(--primary);
   }
 
   span {
@@ -16,9 +26,9 @@ export const ContainerForm = styled.form`
   }
 
   .btn-submit {
-    margin-left: 12px;
-    margin-top: 4px;
-    width: 100px;
+    margin-top: 10px;
+    width: 120px;
+    height: 38px;
   }
 `;
 

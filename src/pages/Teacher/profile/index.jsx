@@ -1,6 +1,6 @@
 import Header from "../../../components/Header";
 import { Sidebar } from "../../../components/Sidebar";
-import { Container, Content } from "./style";
+import { Container, Content, ContentSideBar } from "./style";
 import { useContext, useState } from "react";
 import { TeacherContext } from "../../../providers/TeacherContext";
 import { MdOutlineStarPurple500, MdMessage } from "react-icons/md";
@@ -29,51 +29,55 @@ const Profile = () => {
     <Container>
       <Header />
       <Content>
-        <Sidebar />
+        <ContentSideBar>
+          <Sidebar />
+        </ContentSideBar>
 
-        <div className="main">
-          <div className="editor">
-            <EditDescription />
-          </div>
-          <div className="box-resume">
-            <StandardMessagePerfil user={user} />
-          </div>
-        </div>
-        <div className="ctn-profile">
-          <div className="ctn-description">
-            <div className="ctn-img">
-              <img src={avatarUrl} alt="teacher" />
-              <p>
-                {user?.name} {user?.lastName}
-              </p>
-              <div className="star">
-                <MdOutlineStarPurple500 />
-                <span>5.0 (x avaliações)</span>
-              </div>
-              <div className="info-price">
-                <div>
-                  <span>Preço hora/aula</span>
-                  <span>R$90</span>
-                </div>
-                <div>
-                  <span>Número de alunos</span>
-                  <span>12</span>
-                </div>
-              </div>
-              <div className="ctn-button">
-                <Button onClick={handleOpenChat}>
-                  <MdMessage /> Contatar
-                </Button>
-              </div>
+        <div className="row">
+          <div className="main">
+            <div className="editor">
+              <EditDescription />
+            </div>
+            <div className="box-resume">
+              <StandardMessagePerfil user={user} />
             </div>
           </div>
-          {showChat && (
-            <Chat
-              onClose={handleCloseChat}
-              avatarUrl={avatarUrl}
-              valueFind={valueFind}
-            />
-          )}
+          <div className="ctn-profile">
+            <div className="ctn-description">
+              <div className="ctn-img">
+                <img src={avatarUrl} alt="teacher" />
+                <p>
+                  {user?.name} {user?.lastName}
+                </p>
+                <div className="star">
+                  <MdOutlineStarPurple500 />
+                  <span>5.0 (x avaliações)</span>
+                </div>
+                <div className="info-price">
+                  <div>
+                    <span>Preço hora/aula</span>
+                    <span>R$90</span>
+                  </div>
+                  <div>
+                    <span>Número de alunos</span>
+                    <span>12</span>
+                  </div>
+                </div>
+                <div className="ctn-button">
+                  <Button onClick={handleOpenChat}>
+                    <MdMessage /> Contatar
+                  </Button>
+                </div>
+              </div>
+            </div>
+            {showChat && (
+              <Chat
+                onClose={handleCloseChat}
+                avatarUrl={avatarUrl}
+                valueFind={valueFind}
+              />
+            )}
+          </div>
         </div>
       </Content>
     </Container>
