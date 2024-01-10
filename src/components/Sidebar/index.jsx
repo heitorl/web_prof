@@ -9,6 +9,7 @@ import { TeacherContext } from "../../providers/TeacherContext";
 import { useEffect } from "react";
 import { useState } from "react";
 import { IoIosSchool } from "react-icons/io";
+import { useLocation } from "react-router-dom";
 
 export const Sidebar = () => {
   const { teacherLogout } = useContext(TeacherContext);
@@ -25,6 +26,10 @@ export const Sidebar = () => {
     navigate(endpoint);
   }, [endpoint]);
 
+  const location = useLocation();
+
+  const isRouteActive = (path) => location.pathname === path;
+
   return (
     <>
       <Container>
@@ -39,7 +44,11 @@ export const Sidebar = () => {
           <div className="bar"></div>
 
           <div className="ctn-links">
-            <div className="ctn-icon">
+            <div
+              className={`ctn-icon ${
+                isRouteActive("/dashboard") ? "inUse" : ""
+              }`}
+            >
               <Link to="/dashboard">
                 <TbLayoutDashboard />
               </Link>
@@ -48,7 +57,9 @@ export const Sidebar = () => {
               </span>
             </div>
 
-            <div className="ctn-icon">
+            <div
+              className={`ctn-icon ${isRouteActive("/profile") ? "inUse" : ""}`}
+            >
               <Link to="/profile">
                 <FaUserTie />
               </Link>
@@ -57,7 +68,11 @@ export const Sidebar = () => {
               </span>
             </div>
 
-            <div className="ctn-icon">
+            <div
+              className={`ctn-icon ${
+                isRouteActive("/contacts") ? "inUse" : ""
+              }`}
+            >
               <Link>
                 <IoIosContacts />
               </Link>
@@ -72,7 +87,9 @@ export const Sidebar = () => {
 
           <div className="bar"></div>
           <div className="ctn-links">
-            <div className="ctn-icon">
+            <div
+              className={`ctn-icon ${isRouteActive("/address") ? "inUse" : ""}`}
+            >
               <Link to="/address">
                 <FaRegAddressCard />
               </Link>
@@ -81,7 +98,11 @@ export const Sidebar = () => {
               </span>
             </div>
 
-            <div className="ctn-icon">
+            <div
+              className={`ctn-icon ${
+                isRouteActive("/settings") ? "inUse" : ""
+              }`}
+            >
               <Link to="/settings">
                 <FiSettings />
               </Link>
@@ -90,7 +111,7 @@ export const Sidebar = () => {
               </span>
             </div>
 
-            <div className="ctn-icon">
+            <div className={`ctn-icon ${isRouteActive("") ? "inUse" : ""}`}>
               <Link onClick={teacherLogout}>
                 <IoIosLogOut />
               </Link>

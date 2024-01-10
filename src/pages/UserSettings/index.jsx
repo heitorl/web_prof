@@ -17,6 +17,7 @@ import * as yup from "yup";
 import { FiMail, FiPhone, FiUser } from "react-icons/fi";
 import { useModal } from "../../utils/useModalSchema";
 import { UpdateAvatarModal } from "../../components/UpdateAvatarModal";
+import { MapComponnet } from "../../components/MapComponent";
 
 const UserSettings = () => {
   const { updatedSettingsInfo, user } = useContext(TeacherContext);
@@ -106,15 +107,7 @@ const UserSettings = () => {
             <div className="modal">
               {isModalOpen && <UpdateAvatarModal user={user} />}
             </div>
-            <div className="ctn-map">
-              <div className="ctn-title">
-                <h3>Endereço</h3>
-                <FaMapMarked />
-              </div>
-              <GoogleMapWithGeocoding addressData={user.address} />
-            </div>
           </div>
-
           <div className="containt-form item">
             <div className="title">
               <h2>Informações gerais 🙂</h2>

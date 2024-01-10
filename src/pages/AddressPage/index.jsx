@@ -8,6 +8,7 @@ import { AiOutlineFieldNumber } from "react-icons/ai";
 import * as yup from "yup";
 import { TeacherContext } from "../../providers/TeacherContext";
 import Form from "../../components/Form";
+import { MapComponnet } from "../../components/MapComponent";
 export const AddressPage = () => {
   const { user, createOrUpdatedAddress } = useContext(TeacherContext);
 
@@ -74,12 +75,17 @@ export const AddressPage = () => {
           <Sidebar />
         </ContainerSideBar>
         <div className="coll">
-          <ContentForm>
-            <div className="ctn-title">
-              <h2>Seu endereço atualizado!</h2>
-            </div>
-            <Form onSubmit={onSubmitFunction} inputs={inputs} />
-          </ContentForm>
+          <div className="ctn-map">
+            <MapComponnet user={user} />
+          </div>
+          <div className="ctn-form">
+            <ContentForm>
+              <div className="ctn-title">
+                <h2>Seu endereço atualizado!</h2>
+              </div>
+              <Form onSubmit={onSubmitFunction} inputs={inputs} />
+            </ContentForm>
+          </div>
         </div>
       </Content>
     </Container>

@@ -92,6 +92,10 @@ export const ContentGeral = styled.div`
       align-items: flex-start;
       font-size: 22px;
     }
+
+    .inUse svg {
+      color: var(--primary);
+    }
     .ctn-icon {
       display: flex;
 

@@ -11,6 +11,10 @@ export const ContentSideBar = styled.div`
   display: flex;
   align-items: center;
   padding: 8px;
+
+  @media (min-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 export const Content = styled.div`
@@ -23,6 +27,7 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     width: 90%;
+    overflow: hidden;
   }
 
   .main .coll-view {

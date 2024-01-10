@@ -16,24 +16,31 @@ export const ContentTest = styled.div`
 `;
 
 export const ContainerSideBar = styled.div`
-  backdrop-filter: blur(100px);
-  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+
+  @media (min-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 export const ContentRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
-  padding: 50px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
 
   .item {
-    flex: 1 1 calc(50% - 10px);
   }
 
   .content-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
     /* padding: 30px; */
 
     .modal {
@@ -47,6 +54,7 @@ export const ContentRow = styled.div`
 
   .ctn-photo {
     max-width: 420px;
+    width: 100%;
     border-radius: 10px;
     height: 300px;
     background-color: #ffffff;
@@ -94,38 +102,15 @@ export const ContentRow = styled.div`
     }
   }
 
-  .ctn-map {
-    max-width: 420px;
-    height: 460px;
-    display: flex;
-    background-color: #ffffff;
-    border-radius: 15px;
-    margin-top: 70px;
-    justify-content: end;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    .ctn-title {
-      display: flex;
-      padding: 10px;
-      align-items: center;
-      color: #696969;
-
-      svg {
-        font-size: 25px;
-        margin-left: 10px;
-        color: green;
-      }
-    }
-  }
-
   .containt-form {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    max-width: 650px;
-    height: 830px;
+    max-width: 420px;
+    height: 800px;
+    width: 95%;
+
+    padding: 12px;
     background-color: rgb(255, 255, 255);
     align-items: center;
     /* margin-left: 60px; */
@@ -139,10 +124,27 @@ export const ContentRow = styled.div`
 
     form {
       padding-top: 10px;
-
+      width: 92%;
       button {
         margin-top: 30px;
       }
+    }
+  }
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+    padding-top: 80px;
+
+    .content-info {
+      width: 40%;
+      padding: 0px;
+      height: 100%;
+    }
+
+    .content-form {
+      width: 60%;
+      padding: 0px;
+      max-width: 550px;
     }
   }
 `;
@@ -158,7 +160,7 @@ export const Backdrop = styled.div`
 `;
 
 export const ContainerRow = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;

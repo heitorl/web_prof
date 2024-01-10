@@ -15,15 +15,51 @@ export const Content = styled.div`
 
   .coll {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+
     width: 100%;
+
+    .ctn-map {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 8px;
+    }
+
+    .ctn-form {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .coll {
+      flex-direction: row;
+      justify-content: center;
+
+      .ctn-map {
+        width: 50%;
+        padding: 0px;
+      }
+
+      .ctn-form {
+        width: 50%;
+        margin-top: 70px;
+        justify-content: flex-start;
+      }
+    }
   }
 `;
 
 export const ContainerSideBar = styled.div`
-  height: 100%;
-  backdrop-filter: blur(100px);
+  display: flex;
+  align-items: center;
+  padding: 8px;
+
+  @media (min-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 export const ContentForm = styled.div`
@@ -33,14 +69,26 @@ export const ContentForm = styled.div`
 
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  width: 650px;
+  max-width: 600px;
+  width: 97%;
   height: 720px;
   border-radius: 12px;
+
+  form {
+    padding: 20px;
+  }
+
+  @media (min-width: 1000px) {
+  }
 
   .ctn-title {
     margin-top: 10px;
     padding: 18px;
     color: rgb(113, 128, 150);
     font-weight: bold;
+  }
+
+  &&& form div #ctn-input {
+    padding: 15px;
   }
 `;
