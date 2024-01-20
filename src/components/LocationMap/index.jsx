@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { getCoordinatesFromAddress } from "../../api/getCoordinatis";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import { Container } from "./style";
+import { LoadingComponents } from "../LoadingComponents";
 
 const GoogleMapWithGeocoding = ({ addressData }) => {
   const apiKey = process.env.REACT_APP_API_KEY_MAPS;
@@ -24,6 +23,7 @@ const GoogleMapWithGeocoding = ({ addressData }) => {
           );
 
           if (location) {
+            console.log(location, "lll");
             setCoordinates(location);
           }
         } finally {
@@ -75,15 +75,18 @@ const GoogleMapWithGeocoding = ({ addressData }) => {
           </GoogleMap>
         ) : (
           loading && (
-            <div style={{ width: 50, height: 50 }}>
-              <CircularProgressbar
-                styles={{
-                  root: { width: 24 },
-                  path: { stroke: "#1E90FF" },
-                }}
-                strokeWidth={30}
-                value={progress}
-              />
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <LoadingComponents />
+              <p style={{ marginTop: 10 }}>Carregando...</p>
             </div>
           )
         )

@@ -16,6 +16,7 @@ import { WidgetNotification } from "../WidgetNotification";
 import { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { formatName } from "../../utils/formateName";
 export const Header = () => {
   const { user, retrieveNotifications } = useContext(TeacherContext);
 
@@ -84,7 +85,7 @@ export const Header = () => {
               openModal();
             }}
           />
-          {notifications.length && (
+          {notifications.length > 0 && (
             <Notification>{notifications.length}</Notification>
           )}
         </div>
@@ -98,9 +99,7 @@ export const Header = () => {
 
       <ContentPerfil>
         <div className="ctn-name">
-          <p>{`${user.name.charAt(0).toUpperCase() + user.name.slice(1)} ${
-            user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
-          }`}</p>
+          <p>{formatName(user.name)}</p>
           <p>{user.email}</p>
         </div>
         <div className="ctn-avatar">

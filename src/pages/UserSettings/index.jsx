@@ -26,6 +26,8 @@ const UserSettings = () => {
 
   const avatarUrl = useAvatarUrl(user);
 
+  console.log(avatarUrl, "aaava");
+
   const [selectedDisciplines, setSelectedDisciplines] = useState([]);
   const inputs = [
     {

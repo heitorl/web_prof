@@ -66,6 +66,7 @@ export const ContentPerfil = styled.div`
   margin-left: auto;
   justify-content: flex-end;
   margin-right: 42px;
+  width: 240px;
 
   .ctn-name {
     display: flex;
