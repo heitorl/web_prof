@@ -43,32 +43,32 @@ const Profile = () => {
             </div>
           </div>
           <div className="ctn-profile">
+            <div className="ctn-img">
+              <img src={avatarUrl} alt="teacher" />
+            </div>
             <div className="ctn-description">
-              <div className="ctn-img">
-                <img src={avatarUrl} alt="teacher" />
-                <p>
-                  {user?.name} {user?.lastName}
-                </p>
-                <div className="star">
-                  <MdOutlineStarPurple500 />
-                  <span>5.0 (x avaliações)</span>
+              <p>
+                {user?.name} {user?.lastName}
+              </p>
+              <div className="star">
+                <MdOutlineStarPurple500 />
+                <span>5.0 (x avaliações)</span>
+              </div>
+              <div className="info-price">
+                <div>
+                  <span>Preço hora/aula</span>
+                  <span>R$90</span>
                 </div>
-                <div className="info-price">
-                  <div>
-                    <span>Preço hora/aula</span>
-                    <span>R$90</span>
-                  </div>
-                  <div>
-                    <span>Número de alunos</span>
-                    <span>12</span>
-                  </div>
-                </div>
-                <div className="ctn-button">
-                  <Button onClick={handleOpenChat}>
-                    <MdMessage /> Contatar
-                  </Button>
+                <div>
+                  <span>Número de alunos</span>
+                  <span>12</span>
                 </div>
               </div>
+              {/* <div className="ctn-button">
+                <Button onClick={handleOpenChat}>
+                  <MdMessage /> Contatar
+                </Button>
+              </div> */}
             </div>
             {showChat && (
               <Chat
