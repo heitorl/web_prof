@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { ChatContent, ChatModal } from "./style";
 import { useContext } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
+import { returnFormatedDate } from "../../utils/fomatedDate";
 
 export const Chat = ({ onClose, avatarUrl, teacher }) => {
   const [message, setMessage] = useState("");
@@ -129,7 +130,9 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
             key={index}
           >
             <span className="msg">{message.content}</span>
-            <span className="name">{message.sender?.name}</span>
+            <span className="date">
+              {returnFormatedDate(message.createdAt)}
+            </span>
           </div>
         ))}
       </ChatContent>

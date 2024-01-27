@@ -4,7 +4,7 @@ import Button from "../Button";
 import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { Backdrop, ContainerTeachers } from "./style";
-import { FaMap } from "react-icons/fa";
+import { FaMapMarkedAlt } from "react-icons/fa";
 import userNull from "../../assets/undefined.png";
 import { useModal } from "../../utils/useModalSchema";
 import { Profile } from "../profile";
@@ -92,15 +92,18 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                       5.0
                     </span>
                     <span className="price">R$ 90/h</span>
-                    <div className="map">
-                      <FaMap />
-                      <p>
-                        {" "}
-                        {user.distanceInKilometers
-                          ? `${user.distanceInKilometers} km`
-                          : "?"}
-                      </p>
-                    </div>
+                  </div>
+                  <div className="map">
+                    <span className="neighborhood">
+                      {user.address?.neighborhood}
+                    </span>
+                    <FaMapMarkedAlt />
+                    <span>
+                      {" "}
+                      {user.distanceInKilometers
+                        ? `${user.distanceInKilometers} km de distância`
+                        : "?"}
+                    </span>
                   </div>
                   <div className="ctn-button">
                     <Button

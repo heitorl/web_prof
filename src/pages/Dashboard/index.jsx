@@ -65,6 +65,7 @@ const Dashboard = () => {
                 <ImputSearch setTeacherList={setTeacherList} />
               </div>
             )}
+            <div className="bar"></div>
           </div>
 
           <div className="coll-view">
@@ -77,7 +78,7 @@ const Dashboard = () => {
               )}
               {isModalOpen && <Backdrop />}
             </ContainerSearch>
-            <div className="bar"></div>
+
             {user.address && !!teacherList.length && (
               <FilterSearchTeacher teacherList={teacherList} />
             )}

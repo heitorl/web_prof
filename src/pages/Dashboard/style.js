@@ -33,9 +33,10 @@ export const Content = styled.div`
   .main .coll-view {
     display: flex;
     width: 100%;
-    overflow-y: auto;
+    height: 100%;
 
     flex-direction: column;
+    padding-bottom: 66px;
 
     .bar {
       border-bottom: 1px solid var(--primary);
@@ -53,6 +54,15 @@ export const Content = styled.div`
     width: 100%;
     padding-top: 30px;
     padding-right: 15px;
+
+    /*  */
+    z-index: 1000;
+    .bar {
+      border-bottom: 1px solid var(--primary);
+      width: 75%;
+      padding-top: 30px;
+      margin: 0 auto;
+    }
 
     .content {
       display: flex;
@@ -82,6 +92,7 @@ export const Content = styled.div`
 
   @media (min-width: 1000px) {
     height: 100%;
+    overflow-y: hidden;
     .main {
       width: 100%;
     }

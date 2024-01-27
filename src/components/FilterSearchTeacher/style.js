@@ -16,6 +16,9 @@ export const ContainerTeachers = styled.div`
   width: 100%;
   padding-top: 50px;
 
+  /*  */
+  padding-bottom: 80px;
+  overflow: auto;
   ul {
     width: 100%;
     display: flex;
@@ -63,6 +66,24 @@ export const ContainerTeachers = styled.div`
           font-family: "Roboto";
         }
 
+        .map {
+          display: flex;
+          align-items: center;
+          color: #4a5568;
+
+          .neighborhood {
+            margin-left: 12px;
+          }
+          svg {
+            color: var(--primary);
+            margin-left: 20px;
+          }
+          span {
+            margin-left: 3px;
+            color: rgb(113, 128, 150);
+          }
+        }
+
         .assesment {
           display: flex;
           align-items: center;
@@ -82,19 +103,6 @@ export const ContainerTeachers = styled.div`
             padding: 2px;
             background: lightgreen;
             border-radius: 5px;
-          }
-
-          .map {
-            display: flex;
-            align-items: center;
-            color: #4a5568;
-
-            svg {
-              color: var(--primary);
-            }
-            p {
-              margin-left: 5px;
-            }
           }
         }
         .ctn-button {
@@ -154,6 +162,18 @@ export const ContainerTeachers = styled.div`
         max-width: 300px;
         margin: 0px;
         padding-top: 6px;
+        height: 430px;
+        overflow: hidden;
+        border-radius: 6px;
+        padding: 15px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
     }
     @media (min-width: 1620px) {

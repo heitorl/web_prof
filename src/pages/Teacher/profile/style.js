@@ -18,7 +18,7 @@ export const Content = styled.div`
     padding-top: 20px;
     flex-direction: column-reverse;
     align-items: center;
-    overflow: auto;
+    overflow: autoero7;
   }
 
   .main {

@@ -80,11 +80,17 @@ export const ChatContent = styled.div`
   .ctn-description {
     width: 100%;
     display: flex;
-    padding: 5px;
+
     flex-direction: column;
 
-    .name {
-      font-size: 13px;
+    padding: 7px;
+    flex-direction: column;
+    background: #d4d4d8;
+    margin-top: 10px;
+    border-radius: 8px;
+
+    .date {
+      font-size: 12px;
     }
 
     img {
@@ -99,5 +105,6 @@ export const ChatContent = styled.div`
   .ctn-description.owner {
     justify-content: flex-end;
     text-align: right;
+    background: #7dd3fc;
   }
 `;
