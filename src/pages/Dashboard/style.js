@@ -33,6 +33,7 @@ export const Content = styled.div`
   .main .coll-view {
     display: flex;
     width: 100%;
+    overflow-y: auto;
 
     flex-direction: column;
 
@@ -80,6 +81,7 @@ export const Content = styled.div`
   }
 
   @media (min-width: 1000px) {
+    height: 100%;
     .main {
       width: 100%;
     }

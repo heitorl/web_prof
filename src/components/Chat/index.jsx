@@ -98,6 +98,8 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
     const fetchAllMessages = async () => {
       try {
         const { data } = await retrieveMessages(teacher);
+
+        console.log(data, "messagess");
         setMessages(data);
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -117,6 +119,7 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
 
         <span onClick={onClose}>X</span>
       </div>
+
       <ChatContent>
         {messages.map((message, index) => (
           <div

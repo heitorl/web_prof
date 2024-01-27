@@ -127,19 +127,24 @@ export const ContainerTeachers = styled.div`
       }
     }
 
-    @media (min-width: 1000px) {
-      width: 80%;
+    @media (min-width: 1160px) {
+      width: 100%;
       margin: auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
       justify-items: center;
       grid-row-gap: 50px;
       padding-top: 30px;
+      padding-bottom: 30px;
+      column-gap: 16px;
+      padding-left: 12px;
+      padding-right: 12px;
 
       li {
-        width: 330px;
+        max-width: 300px;
+        width: 100%;
         height: 420px;
+        column-gap: 20px;
 
         flex: auto;
         margin: 0px;
@@ -147,6 +152,39 @@ export const ContainerTeachers = styled.div`
 
       li .ctn-img {
         max-width: 300px;
+        margin: 0px;
+        padding-top: 6px;
+      }
+    }
+    @media (min-width: 1620px) {
+      width: 100%;
+      gap: 50px 0px;
+
+      li:nth-child(3n + 1) {
+        justify-self: end;
+      }
+
+      li:nth-child(3n + 2) {
+        justify-self: center;
+      }
+
+      li:nth-child(3n + 3) {
+        justify-self: start;
+      }
+
+      li {
+        max-width: 340px;
+        width: 100%;
+        height: 420px;
+        column-gap: 20px;
+
+        flex: auto;
+        margin: 0px;
+      }
+      li .ctn-img {
+        max-width: 340px;
+        margin: 0px;
+        padding-top: 6px;
       }
     }
   }
