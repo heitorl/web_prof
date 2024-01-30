@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const ChatModal = styled.div`
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
+  right: 20px;
   width: 320px;
   height: 380px;
   background-color: white;
@@ -15,27 +16,40 @@ export const ChatModal = styled.div`
   border-radius: 10px;
   .chat-header {
     display: flex;
-
-    justify-content: space-between;
+    padding-left: 12px;
     padding: 10px;
     align-items: center;
-    background: var(--primary);
+    background: rgb(58, 68, 77);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 
-    div {
+    .ctn-img {
       display: flex;
       align-items: center;
+      width: 40px;
 
-      h2 {
-        padding-left: 8px;
-        color: rgb(212, 212, 216);
+      img {
+        width: 100%;
+        border-radius: 50%;
+        height: 35px;
+        object-fit: cover;
       }
     }
-    img {
-      width: 30px;
-      border-radius: 50%;
-    }
 
-    .close {
+    .name-close {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h2 {
+        padding-left: 8px;
+        color: #a1a1aa;
+      }
+
+      span {
+        color: #e4e4e7;
+        cursor: pointer;
+      }
     }
   }
 

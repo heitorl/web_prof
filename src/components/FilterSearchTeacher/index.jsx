@@ -5,11 +5,14 @@ import { useContext, useEffect, useState } from "react";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { Backdrop, ContainerTeachers } from "./style";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import userNull from "../../assets/undefined.png";
 import { useModal } from "../../utils/useModalSchema";
 import { Profile } from "../profile";
 
-export const FilterSearchTeacher = ({ teacherList }) => {
+export const FilterSearchTeacher = ({
+  teacherList,
+  setOpenChat,
+  setSelectedTeacherToMsg,
+}) => {
   const { getImageAvatar, user } = useContext(TeacherContext);
   const [avatarUrls, setAvatarUrls] = useState([]);
 
@@ -52,6 +55,11 @@ export const FilterSearchTeacher = ({ teacherList }) => {
 
   const handleObjectSelection = (object) => {
     setSelectedTeacher(object);
+  };
+
+  const handleOpenChat = (u) => {
+    setSelectedTeacherToMsg(u);
+    setOpenChat(true);
   };
   return (
     <ContainerTeachers>
@@ -114,6 +122,15 @@ export const FilterSearchTeacher = ({ teacherList }) => {
                       }}
                     >
                       SABER MAIS
+                    </Button>
+
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenChat(user);
+                      }}
+                    >
+                      MENSAGEM
                     </Button>
                   </div>
                 </div>

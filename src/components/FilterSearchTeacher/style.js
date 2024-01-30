@@ -106,9 +106,21 @@ export const ContainerTeachers = styled.div`
           }
         }
         .ctn-button {
-          width: 100px;
+          width: 240px;
           display: flex;
           margin-left: 10px;
+
+          button + button {
+            margin-left: 20px;
+          }
+
+          button:nth-child(1) {
+            background-color: #52525b;
+          }
+
+          button:nth-child(2) {
+            background-color: #1d4ed8;
+          }
         }
 
         button {

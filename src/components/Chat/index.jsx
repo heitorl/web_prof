@@ -98,6 +98,7 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
   useEffect(() => {
     const fetchAllMessages = async () => {
       try {
+        console.log(teacher, "++++++++++=");
         const { data } = await retrieveMessages(teacher);
 
         console.log(data, "messagess");
@@ -113,12 +114,15 @@ export const Chat = ({ onClose, avatarUrl, teacher }) => {
   return (
     <ChatModal>
       <div className="chat-header">
-        <div>
+        <div className="ctn-img">
           <img src={avatarUrl} alt="avatar" />
-          <h2>{teacher.name}</h2>
         </div>
 
-        <span onClick={onClose}>X</span>
+        <div className="name-close">
+          <h2>{teacher.name}</h2>
+
+          <span onClick={onClose}>X</span>
+        </div>
       </div>
 
       <ChatContent>

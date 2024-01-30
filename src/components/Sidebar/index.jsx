@@ -76,9 +76,11 @@ export const Sidebar = () => {
               <Link>
                 <IoIosContacts />
               </Link>
-              <span>
-                <Link>Contatos</Link>
-              </span>
+              <div>
+                <span>
+                  <Link>Contatos</Link>
+                </span>
+              </div>
             </div>
           </div>
           <div className="ctn-title">

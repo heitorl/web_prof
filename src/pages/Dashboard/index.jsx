@@ -14,11 +14,16 @@ import { FilterSearchTeacher } from "../../components/FilterSearchTeacher";
 import { TeacherContext } from "../../providers/TeacherContext";
 import { useModal } from "../../utils/useModalSchema";
 import { Warning } from "../../components/Warning";
+import { Chat } from "../../components/Chat";
+import useAvatarUrl from "../../utils/getAvatarForUser";
 
 const Dashboard = () => {
   const [teacherList, setTeacherList] = useState([]);
-
-  const { findAllTeacher, user } = useContext(TeacherContext);
+  const [selectedTeacherToMsg, setSelectedTeacherToMsg] = useState({});
+  const [openChat, setOpenChat] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState();
+  const { findAllTeacher, user, valueFind, getImageAvatar } =
+    useContext(TeacherContext);
 
   const { isModalOpen, openModal } = useModal();
 
@@ -45,6 +50,21 @@ const Dashboard = () => {
       openModal();
     }
   }, []);
+
+  useEffect(() => {
+    async function fetchAvatar() {
+      try {
+        const { avatarPath } = await getImageAvatar(selectedTeacherToMsg);
+
+        setAvatarUrl(avatarPath);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAvatar();
+  }, [selectedTeacherToMsg]);
+
+  const handleCloseChat = () => setOpenChat(false);
 
   return (
     <Container>
@@ -80,11 +100,24 @@ const Dashboard = () => {
             </ContainerSearch>
 
             {user.address && !!teacherList.length && (
-              <FilterSearchTeacher teacherList={teacherList} />
+              <FilterSearchTeacher
+                teacherList={teacherList}
+                openChat={openChat}
+                setOpenChat={setOpenChat}
+                setSelectedTeacherToMsg={setSelectedTeacherToMsg}
+              />
             )}
           </div>
         </main>
       </Content>
+
+      {openChat && (
+        <Chat
+          onClose={handleCloseChat}
+          avatarUrl={avatarUrl}
+          teacher={selectedTeacherToMsg}
+        />
+      )}
     </Container>
   );
 };
